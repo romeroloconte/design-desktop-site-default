@@ -124,10 +124,14 @@ export function Frame({
     const s = sizing.current;
     const el = ref.current;
     if (!s || !el) return;
-    const w = Math.max(360, Math.min(window.innerWidth, s.w + e.clientX - s.px));
+    const minW = window.innerWidth <= 720 ? 220 : 360;
+    const w = Math.max(minW, Math.min(window.innerWidth, s.w + e.clientX - s.px));
     const h = Math.max(240, Math.min(window.innerHeight - 28, s.h + e.clientY - s.py));
     el.style.width = `${w}px`;
     el.style.height = `${h}px`;
+    // Phones size browser windows through these (CSS !important beats the inline size).
+    el.style.setProperty('--rw', `${w}px`);
+    el.style.setProperty('--rh', `${h}px`);
     pos.current = { x: s.x + (w - s.w) / 2, y: s.y + (h - s.h) / 2 };
     el.style.setProperty('--dx', `${pos.current.x}px`);
     el.style.setProperty('--dy', `${pos.current.y}px`);

@@ -538,17 +538,20 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .browser-back { display: none; flex: none; width: 28px; height: 28px; padding: 0; border: 0; background: transparent; border-radius: 8px; color: var(--on-dark); line-height: 0; }
 @media (hover: hover) { .browser-back:hover { background: var(--ff-url); } }
 @media (max-width: 767px) { .browser-nav { display: none; } .browser-back { display: grid; place-items: center; } }
-/* Spotify: opens compact. */
+/* Spotify: opens compact on desktop (phones use the same size as the other browser windows). */
 .browser-window--compact { --window-w: min(420px, 94vw); --window-h: min(560px, 80vh); }
 @media (max-width: 720px) {
-  /* phone: smallest usable player, clear of the vertical dock */
-  .browser-window--compact { --window-w: min(280px, calc(100vw - 100px)); --window-h: 232px; }
-  .browser-window:not(.browser-window--compact) { --window-w: min(320px, calc(100vw - 100px)); --window-h: min(460px, 70vh); }
-  .browser-window--compact .browser-embed { padding: var(--sp-2); }
+  .browser-window { --window-w: min(320px, calc(100vw - 100px)); --window-h: min(460px, 70vh); }
   /* browser windows stay small on phones; the green button still expands them */
   .window-layer:has(.browser-window:not(.is-expanded)) { padding-left: 84px; }
-  .case-window.browser-window:not(.is-expanded) { width: var(--window-w) !important; height: var(--window-h) !important; border-radius: var(--radius-window); }
+  /* Spotify: narrow and tall. Below ~340px wide its embed switches to the compact layout (no tracklist). */
+  .browser-window--compact { --window-w: min(260px, calc(100vw - 100px)); --window-h: min(540px, 78vh); }
+  .case-window.browser-window:not(.is-expanded) { width: var(--rw, var(--window-w)) !important; height: var(--rh, var(--window-h)) !important; translate: var(--dx, 0px) var(--dy, 0px); border-radius: var(--radius-window); }
   .browser-window .browser-top .traffic-lights { top: 21px; }
+  .browser-window .browser-embed { padding: 0; } /* Spotify's embed needs every pixel of width */
+  .browser-window .browser-frame { border-radius: 0; }
+  .browser-window .browser-top { touch-action: none; } /* drag the window by its title bar */
+  .browser-window .resize-handle { display: block; width: 28px; height: 28px; }
 }
 /* Own website window: tweak these to resize it. */
 .browser-window--site { --window-w: min(1280px, 94vw); --window-h: min(840px, 86vh); }
