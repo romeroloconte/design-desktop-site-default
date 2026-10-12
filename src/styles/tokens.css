@@ -1,0 +1,197 @@
+:root {
+  /* ---------- base color ---------- */
+  --ink: #202020;
+  --muted: #6b6b6b; /* AA on --window-bg (≈4.9:1); #818181 failed at 3.4:1 */
+  --system-blue: #0a84ff;
+  --system-blue-solid: #0071e3; /* white text on blue (AA ≈4.6:1) */
+  --notes-sidebar: #f0efec;
+  --notes-active: #ffe38a;
+  --system-blue-text: #0060d0; /* blue for text on light surfaces (AA) */
+  --menu-bg: rgba(249, 248, 246, 0.94);
+  --window-bg: #f5f4ef;
+  --surface: #ffffff;
+  --surface-dark: #1c1b1f;
+  --on-dark: #ffffff;
+  --on-dark-muted: #b4b2ba;
+  --status-green: #28c840;
+  --hairline: rgba(32, 32, 32, 0.12);
+  --hairline-dark: rgba(255, 255, 255, 0.14);
+  --desktop-bg: #c9bfd0;
+
+  /* per-case accent (overridden by [data-theme]) */
+  --accent: #6b4fd8;
+  --accent-text: #5a3fc4; /* accent used as text on light */
+  --accent-on-dark: #b3a2ff; /* accent used as text on dark */
+  --accent-12: rgba(107, 79, 216, 0.12);
+  --accent-glow: rgba(107, 79, 216, 0.22);
+  --accent-strong: #3d2a8f; /* metrics figures */
+
+  /* chrome */
+  --chrome-from: #fbfafa;
+  --chrome-to: #ebe9e6;
+  --subnav-bg: #fbfaf8;
+  --glass-bg: rgba(255, 255, 255, 0.28);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-sep: rgba(0, 0, 0, 0.22);
+  --tooltip-bg: rgba(28, 28, 30, 0.92);
+  --dialog-bg: rgba(42, 42, 44, 0.92);
+  --dialog-text-muted: #c4c4c8;
+  --folder-back: #3e93f4;
+  --folder-front: #74b7ff;
+  --folder-label: #ffffff;
+  --scrim: rgba(0, 0, 0, 0.18);
+
+  --tl-close: #ff5f57;
+  --tl-min: #febc2e;
+  --tl-max: #28c840;
+  --tl-idle: rgba(0, 0, 0, 0.14);
+
+  /* ---------- hero (no photo yet: treated placeholder) ---------- */
+  --hero-tint-a: #d8a9b8;
+  --hero-tint-b: #9a8cc4;
+  --hero-tint-c: #5d567e;
+  --hero-edge-glow: rgba(255, 255, 255, 0.09);
+  --hero-wordmark: rgba(255, 255, 255, 0.96);
+
+  /* ---------- type ---------- */
+  --font-sans: -apple-system, 'SF Pro Display', 'SF Pro Text', Inter, Arial, sans-serif;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fs-2xs: 11px;
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 15px;
+  --fs-body: 16px;
+  --fs-lg: 20px;
+  --fs-card: 18px;
+  --fs-note-h1: 28px;
+  --fs-heading: clamp(32px, 4.2vw, 48px);
+  --fs-display: clamp(44px, 6.4vw, 72px);
+  --fs-wordmark: clamp(40px, 8vw, 78px);
+  --fs-metric: clamp(40px, 5vw, 56px);
+  --lh-body: 1.55;
+  --lh-display: 0.95;
+  --tr-display: -0.03em;
+  --tr-heading: -0.02em;
+  --tr-eyebrow: 0.12em;
+  --tr-wordmark: 0.25em;
+
+  /* ---------- space (4px scale) ---------- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 40px;
+  --sp-7: 64px;
+  --sp-8: 96px;
+  --sp-9: 120px;
+  --section-pad-x: 64px;
+  --section-gap: var(--sp-8);
+
+  /* ---------- shape ---------- */
+  --radius-sm: 6px;
+  --radius-window: 13px;
+  --radius-dialog: 12px;
+  --radius-card: 16px;
+  --radius-card-lg: 20px;
+  --radius-dock: 20px;
+  --radius-squircle: 22%;
+  --radius-pill: 999px;
+
+  --shadow-window: 0 32px 90px rgba(19, 16, 24, 0.34), 0 5px 20px rgba(19, 16, 24, 0.16),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.72);
+  --shadow-dialog: 0 24px 60px rgba(0, 0, 0, 0.4), 0 0 0 0.5px rgba(255, 255, 255, 0.16);
+  --shadow-folder: drop-shadow(0 4px 6px rgba(10, 20, 50, 0.28));
+  --shadow-folder-hover: drop-shadow(0 10px 14px rgba(10, 20, 50, 0.4));
+  --shadow-dock-icon: 0 2px 6px rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 1px 2px rgba(19, 16, 24, 0.06), 0 8px 24px rgba(19, 16, 24, 0.06);
+
+  /* ---------- layout ---------- */
+  --menu-bar-h: 28px;
+  --titlebar-h: 38px;
+  --dock-icon: 44px;
+  --window-w: min(1040px, 88vw);
+  --window-h: min(700px, 78vh);
+  --window-pad-expanded: 24px;
+  --dock-offset: 110px;
+
+  /* ---------- motion ---------- */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-press: 45ms;
+  --dur-hover: 160ms;
+  --dur-notes: 220ms;
+  --dur-expand: 240ms;
+  --dur-window: 280ms;
+}
+
+/* ---------- case themes ---------- */
+[data-theme='light'] {
+  --accent: #6b4fd8;
+  --accent-text: #5a3fc4;
+  --accent-on-dark: #b3a2ff;
+  --accent-12: rgba(107, 79, 216, 0.12);
+  --accent-glow: rgba(107, 79, 216, 0.22);
+  --accent-strong: #3d2a8f;
+}
+
+/* instrument-like dark variant (video case) */
+[data-theme='dark'] {
+  --ink: #f2f2f2;
+  --muted: #a3a3a8;
+  --window-bg: #0a0a0b;
+  --surface: #131315;
+  --surface-dark: #000000;
+  --hairline: rgba(255, 255, 255, 0.14);
+  --chrome-from: #2a2a2c;
+  --chrome-to: #1e1e20;
+  --subnav-bg: #0f0f10;
+  --tl-idle: rgba(255, 255, 255, 0.2);
+  --accent: #3ddc84;
+  --accent-text: #3ddc84;
+  --accent-on-dark: #5ff0a0;
+  --accent-12: rgba(61, 220, 132, 0.14);
+  --accent-glow: rgba(61, 220, 132, 0.18);
+  --accent-strong: #3ddc84;
+}
+
+/* ---------- compatibility aliases (pre-existing names) ---------- */
+:root {
+  --c-bg: var(--desktop-bg);
+  --c-surface: var(--surface);
+  --c-surface-2: var(--window-bg);
+  --c-text: var(--ink);
+  --c-text-muted: var(--muted);
+  --c-border: var(--hairline);
+  --c-accent: var(--system-blue);
+  --c-inverse-bg: var(--surface-dark);
+  --c-inverse-text: var(--on-dark);
+  --c-menubar: var(--menu-bg);
+  --c-dock: var(--glass-bg);
+  --c-select: var(--system-blue);
+  --c-ok: var(--status-green);
+  --radius-md: var(--radius-card);
+  --radius-lg: var(--radius-window);
+  --fs-xl: var(--fs-heading);
+  --dur: var(--dur-expand);
+  --dur-fast: var(--dur-hover);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --section-pad-x: 20px;
+    --section-gap: var(--sp-7);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-press: 0ms;
+    --dur-hover: 0ms;
+    --dur-notes: 0ms;
+    --dur-expand: 0ms;
+    --dur-window: 0ms;
+  }
+}
