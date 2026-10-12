@@ -1,6 +1,6 @@
 import { useId, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from 'react';
 import type { Project } from '../content/types';
-import { useWindowFocus } from '../hooks/hooks';
+import { useIsMobile, useWindowFocus } from '../hooks/hooks';
 import { CaseBody } from './CaseNav';
 
 interface ChromeProps {
@@ -13,6 +13,7 @@ interface ChromeProps {
 }
 
 export function WindowChrome({ title, titleId, isExpanded, onClose, onMinimize, onToggleExpand }: ChromeProps) {
+  const isMobile = useIsMobile();
   return (
     <div className="window-chrome" data-drag>
       <div className="traffic-lights">
@@ -21,8 +22,8 @@ export function WindowChrome({ title, titleId, isExpanded, onClose, onMinimize, 
         <button
           type="button"
           className="tl tl--max"
-          aria-label={isExpanded ? 'Restore window size' : 'Expand window'}
-          onClick={onToggleExpand}
+          aria-label={isMobile ? 'Minimize window' : isExpanded ? 'Restore window size' : 'Expand window'}
+          onClick={isMobile ? onMinimize : onToggleExpand}
         />
       </div>
       <h2 className="window-chrome__title" id={titleId}>

@@ -1,11 +1,13 @@
 import { useId, useState } from 'react';
 import type { Note } from '../content/types';
+import { useIsMobile } from '../hooks/hooks';
 import { Frame, WindowChrome, type FrameProps } from './CaseWindow';
 
 export function NotesWindow({ notes, f }: { notes: Note[]; f: FrameProps }) {
   const titleId = useId();
   const [activeId, setActiveId] = useState<string | undefined>();
-  const active = notes.find((n) => n.id === activeId);
+  const isMobile = useIsMobile();
+  const active = notes.find((n) => n.id === (activeId ?? (isMobile ? notes[0]?.id : undefined)));
 
   return (
     <Frame f={f} titleId={titleId} className="notes-window">

@@ -30,8 +30,8 @@ export const dockItems: DockItemData[] = [
     id: 'tool-figma',
     label: 'Figma',
     icon: '/icons-dock/figma.png',
-    kind: 'link',
-    href: 'https://www.figma.com/@romeroloconte',
+    kind: 'tool',
+    dialog: { title: 'Figma', body: '[TODO] Short note about how you use Figma.', cta: 'OK' },
   },
   {
     id: 'tool-claude',
