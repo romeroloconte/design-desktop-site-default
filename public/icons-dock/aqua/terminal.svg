@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><clipPath id="k"><rect x="4" y="4" width="56" height="56" rx="14"/></clipPath>
+<linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a4a4a"/><stop offset="1" stop-color="#050505"/></linearGradient>
+<linearGradient id="t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f4f4"/><stop offset="1" stop-color="#a8a8a8"/></linearGradient>
+<linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset="1" stop-color="#fff" stop-opacity=".1"/></linearGradient></defs>
+<rect x="4" y="4" width="56" height="56" rx="14" fill="url(#b)"/>
+<path d="M4 18V18a14 14 0 0114-14h28a14 14 0 0114 14z" fill="url(#t)"/><path d="M4 18h56" stroke="#555" stroke-width=".8"/>
+<circle cx="14" cy="11" r="2.1" fill="#ff5f57"/><circle cx="21.5" cy="11" r="2.1" fill="#febc2e"/><circle cx="29" cy="11" r="2.1" fill="#28c840"/>
+<path d="M14 30l10 8-10 8" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="29" y="45" width="13" height="3.6" rx="1" fill="#fff"/>
+<path d="M4 4H60V26Q32 34 4 26Z" fill="url(#s)" clip-path="url(#k)"/></svg>

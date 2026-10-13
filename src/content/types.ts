@@ -133,6 +133,7 @@ export interface DockItemData {
   id: string;
   label: string;
   icon: string;
+  icons?: Partial<Record<'aqua' | 'classic', string>>; // per-theme override; falls back to icon
   kind: 'tool' | 'notes' | 'link' | 'browser';
   dialog?: { title: string; body: string; cta: string };
   href?: string;

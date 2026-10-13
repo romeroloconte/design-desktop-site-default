@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { AnimatePresence, motion, Reorder, useMotionValue, useSpring, useTransform, type MotionValue } from 'motion/react';
 import type { DockItemData } from '../content/types';
 import { dockSeparatorsAfter } from '../content/dock';
-import { useIsMobile, usePrefersReducedMotion } from '../hooks/hooks';
+import { useIsMobile, useItemIcon, usePrefersReducedMotion } from '../hooks/hooks';
 
 const DEFAULT_SIZE = 44;
 const MIN_SIZE = 32;
@@ -31,6 +31,7 @@ interface ItemProps {
 }
 
 export function DockItem({ item, mouseX, base: BASE, reduced, running, onActivate, thumb }: ItemProps) {
+  const icon = useItemIcon(item);
   const MAX = BASE * (80 / 44);
   const RANGE = BASE * (140 / 44);
   const ref = useRef<HTMLDivElement>(null);
@@ -75,7 +76,7 @@ export function DockItem({ item, mouseX, base: BASE, reduced, running, onActivat
         }}
       >
         <span className="dock-item__icon" aria-hidden="true">
-          {thumb ? <WindowThumb kind={thumb} icon={item.icon} /> : item.icon.startsWith('/') ? <img src={item.icon} alt="" draggable={false} /> : item.icon}
+          {thumb ? <WindowThumb kind={thumb} icon={icon} /> : icon.startsWith('/') ? <img src={icon} alt="" draggable={false} /> : icon}
         </span>
       </motion.button>
       {running && <span className="dock-dot" aria-hidden="true" />}
@@ -89,6 +90,7 @@ export interface DockTile {
   key: string;
   label: string;
   icon: string;
+  icons?: DockItemData['icons'];
   thumb: ThumbKind;
 }
 
@@ -260,7 +262,7 @@ export function Dock({
             exit={{ scale: 0.3, opacity: 0, transition: { duration: 0.18 } }}
           >
             <DockItem
-              item={{ id: t.key, label: t.label, icon: t.icon, kind: 'tool' }}
+              item={{ id: t.key, label: t.label, icon: t.icon, icons: t.icons, kind: 'tool' }}
               mouseX={mouseX}
               base={size}
               reduced={reduced}

@@ -60,3 +60,21 @@ export function useWindowFocus(ref: RefObject<HTMLElement | null>, active: boole
     (el.querySelector<HTMLElement>('[data-autofocus]') ?? el).focus({ preventScroll: true });
   }, [ref, active]);
 }
+
+/** Current `data-appearance` of the document, kept in sync when the theme changes. */
+export function useAppearanceAttr(): string {
+  const read = () => document.documentElement.getAttribute('data-appearance') ?? 'tahoe';
+  const [v, setV] = useState(read);
+  useEffect(() => {
+    const mo = new MutationObserver(() => setV(read()));
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-appearance'] });
+    return () => mo.disconnect();
+  }, []);
+  return v;
+}
+
+/** The item's icon for the active theme, falling back to its default icon. */
+export function useItemIcon(item: { icon: string; icons?: Partial<Record<'aqua' | 'classic', string>> }): string {
+  const appearance = useAppearanceAttr();
+  return (item.icons as Record<string, string> | undefined)?.[appearance] ?? item.icon;
+}

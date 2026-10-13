@@ -1,11 +1,12 @@
 import { useId, useRef } from 'react';
 import type { DockItemData } from '../content/types';
-import { useFocusTrap } from '../hooks/hooks';
+import { useFocusTrap, useItemIcon } from '../hooks/hooks';
 
 export function SystemDialog({ item, onClose }: { item: DockItemData; onClose: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const titleId = useId();
   const descId = useId();
+  const icon = useItemIcon(item);
   useFocusTrap(ref, onClose);
   if (!item.dialog) return null;
 
@@ -27,7 +28,7 @@ export function SystemDialog({ item, onClose }: { item: DockItemData; onClose: (
           </span>
         </div>
         <span className="system-dialog__icon" aria-hidden="true">
-          {item.icon.startsWith('/') ? <img src={item.icon} alt="" draggable={false} /> : item.icon}
+          {icon.startsWith('/') ? <img src={icon} alt="" draggable={false} /> : icon}
         </span>
         <h2 id={titleId} className="system-dialog__title">
           {item.dialog.title}

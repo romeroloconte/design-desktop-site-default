@@ -1,7 +1,7 @@
 import { useId } from 'react';
 import type { DockItemData } from '../content/types';
 import { author, notes } from '../content/dock';
-import { useIsMobile } from '../hooks/hooks';
+import { useIsMobile, useItemIcon } from '../hooks/hooks';
 import { Frame, type FrameProps } from './CaseWindow';
 
 
@@ -10,6 +10,7 @@ import { Frame, type FrameProps } from './CaseWindow';
 export function BrowserWindow({ item, f }: { item: DockItemData; f: FrameProps }) {
   const titleId = useId();
   const isMobile = useIsMobile();
+  const icon = useItemIcon(item);
   const href = item.href ?? 'https://www.linkedin.com';
   const display = href.replace(/^https?:\/\//, '');
   const about = notes.find((n) => n.id === 'about');
@@ -29,7 +30,7 @@ export function BrowserWindow({ item, f }: { item: DockItemData; f: FrameProps }
             />
           </div>
           <div className="browser-tab">
-            <img src={item.icon} alt="" width={14} height={14} draggable={false} />
+            <img src={icon} alt="" width={14} height={14} draggable={false} />
             <h2 id={titleId} className="browser-tab__title">
               {title}
             </h2>

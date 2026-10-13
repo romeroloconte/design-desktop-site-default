@@ -232,33 +232,58 @@ function whatsNew(): Project {
         heading: "What's new",
         groups: [
           {
-            date: '12 Oct 2026',
+            date: '13 Oct 2026',
             entries: [
               {
                 tag: 'New',
-                title: 'New feature title',
-                desc: 'A short description of this new feature and what it lets people do. Replace this with the real update.',
+                title: 'Three interfaces, three eras',
+                desc: 'The portfolio now ships with three complete looks, each true to its time. Switch between them from the Apple menu, under About This Mac. Your choice is remembered.',
               },
               {
-                tag: 'Improved',
-                title: 'Improvement title',
-                desc: 'A short description of what was improved and why it makes the experience better.',
+                tag: 'New',
+                title: 'Classic · Mac OS 9',
+                desc: 'Platinum: flat grey chrome, crisp one-pixel bevels, striped title bars and a pixel-perfect menu bar and dock.',
+                media: { src: '/images/whatsnew-classic.webp', alt: 'Portfolio in the Classic (Mac OS 9) appearance' },
               },
               {
-                tag: 'Improved',
-                title: 'Interface improvements',
-                desc: 'Smaller refinements for a cleaner, more consistent experience.',
+                tag: 'New',
+                title: 'Aqua · Mac OS X 10.4',
+                desc: 'Glossy gel buttons, brushed pinstripes, glass traffic lights and the reflective Tiger-era dock.',
+                media: { src: '/images/whatsnew-aqua.webp', alt: 'Portfolio in the Aqua (Mac OS X 10.4) appearance' },
+              },
+              {
+                tag: 'New',
+                title: 'Tahoe · macOS 26',
+                desc: 'Liquid Glass: translucent layers, generous rounding and soft light. Still the default.',
+                media: { src: '/images/whatsnew-tahoe.webp', alt: 'Portfolio in the Tahoe (macOS 26) appearance' },
               },
             ],
           },
           {
-            date: '8 Oct 2026',
+            date: '[Date]',
+            entries: [
+              {
+                tag: 'Improved',
+                title: 'Notes, reshaped',
+                desc: '[Placeholder] We shaped the Notes section to feel like the real app. Describe what changed and why.',
+                media: { src: '/images/whatsnew-notes.webp', alt: 'The Notes section open on the Interests note' },
+              },
+              {
+                tag: 'New',
+                title: 'My favorite everyday apps',
+                desc: '[Placeholder] The apps I use day to day, now listed in Notes. Add the list and a line on why each one stays.',
+                media: { src: '/images/whatsnew-apps.webp', alt: 'The dock with my everyday apps: Spotify, Figma, Claude, VS Code, GitHub, Terminal' },
+              },
+            ],
+          },
+          {
+            date: '[Date]',
             entries: [
               {
                 tag: 'New',
-                title: 'Another new feature',
-                desc: 'A short description of this update, with a screenshot below.',
-                media: { alt: 'Screenshot placeholder' },
+                title: 'Building the site',
+                desc: '[Placeholder] How we developed the site: the idea, the stack and the decisions along the way.',
+                media: { src: '/images/whatsnew-build.webp', alt: 'The How I build this site window' },
               },
             ],
           },

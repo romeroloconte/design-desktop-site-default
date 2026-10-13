@@ -14,12 +14,16 @@ import { BrowserWindow } from './components/BrowserWindow';
 import type { FrameProps } from './components/CaseWindow';
 import { SystemDialog } from './components/SystemDialog';
 import { Spotlight } from './components/Spotlight';
+import { AboutMac } from './components/AboutMac';
+import { useAppearance } from './appearance';
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const isMobile = useIsMobile();
   const opener = useRef<HTMLElement | null>(null);
   const [spotlight, setSpotlight] = useState(false);
+  const [about, setAbout] = useState(false);
+  const [appearance, setAppearance] = useAppearance();
 
   const openSpotlight = useCallback(() => {
     opener.current = document.activeElement as HTMLElement;
@@ -112,7 +116,7 @@ export default function App() {
   }, [spotlight, top, close]);
 
   const [trashFull, setTrashFull] = useState(true);
-  const dockList = dockItems.map((d) => (d.id === 'trash' && !trashFull ? { ...d, icon: '/icons-dock/trash-empty.png' } : d));
+  const dockList = dockItems.map((d) => (d.id === 'trash' && !trashFull ? { ...d, icon: '/icons-dock/trash-empty.png', icons: { aqua: '/icons-dock/aqua/trash-empty.png?v=3', classic: '/icons-dock/classic/trash-empty.svg' } } : d));
 
   const onDock = (item: DockItemData) => {
     if (item.id === 'trash') return setTrashFull(false);
@@ -130,7 +134,7 @@ export default function App() {
       return { key: w.key, label: p?.title ?? 'Case', icon: '/icons-dock/folder.png', thumb: 'case' };
     }
     const d = [...dockItems, profileItem].find((x) => x.id === w.id);
-    return { key: w.key, label: d?.label ?? w.id, icon: d?.icon ?? '/icons-dock/folder.png', thumb: d?.kind === 'notes' ? 'notes' : d?.id === 'tool-spotify' ? 'spotify' : d?.kind === 'browser' ? 'browser' : 'generic' };
+    return { key: w.key, label: d?.label ?? w.id, icon: d?.icon ?? '/icons-dock/folder.png', icons: d?.icons, thumb: d?.kind === 'notes' ? 'notes' : d?.id === 'tool-spotify' ? 'spotify' : d?.kind === 'browser' ? 'browser' : 'generic' };
   };
   const tiles = wins.filter((w) => w.minimized && w.type !== 'dialog').map(tileFor);
   const runningIds = new Set(wins.filter((w) => w.type !== 'case').map((w) => w.id));
@@ -150,7 +154,7 @@ export default function App() {
 
   return (
     <main className="desktop-shell">
-      <MenuBar onProfile={() => open({ type: 'browser', id: profileItem.id })} onSearch={openSpotlight} onHome={() => (top ? close(top.key) : dispatch({ type: 'select', id: null }))} />
+      <MenuBar onApple={() => setAbout(true)} onProfile={() => open({ type: 'browser', id: profileItem.id })} onSearch={openSpotlight} onHome={() => (top ? close(top.key) : dispatch({ type: 'select', id: null }))} />
       <Desktop
         projects={projects}
         selectedId={state.selectedFolderId}
@@ -190,6 +194,7 @@ export default function App() {
         const item = dockItems.find((d) => d.id === w.id);
         return item && <SystemDialog key={w.key} item={item} onClose={() => close(w.key)} />;
       })}
+      {about && <AboutMac current={appearance} onPick={setAppearance} onClose={() => setAbout(false)} />}
       {spotlight && (
         <Spotlight
           projects={projects}
