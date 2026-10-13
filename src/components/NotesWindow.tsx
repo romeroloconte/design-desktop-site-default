@@ -21,7 +21,10 @@ export function NotesWindow({ notes, f }: { notes: Note[]; f: FrameProps }) {
       />
       <div className="notes">
         <aside className="notes__sidebar" aria-label="Notes list">
-          <p className="notes__count">{notes.length} Notes</p>
+          <header className="notes__head">
+            <h2 className="notes__folder">Portfolio</h2>
+            <span className="notes__count">{notes.length} Notes</span>
+          </header>
           <ul>
             {notes.map((n) => (
               <li key={n.id}>
@@ -41,6 +44,7 @@ export function NotesWindow({ notes, f }: { notes: Note[]; f: FrameProps }) {
         <article className="notes__content" data-note={active?.id}>
           {active ? (
             <>
+              {active.kicker && <p className="notes__kicker">{active.kicker}</p>}
               <h3>{active.title}</h3>
               {active.content.split('\n\n').map((para) => (
                 <NoteBlock key={para} text={para} />

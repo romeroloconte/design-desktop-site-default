@@ -145,5 +145,6 @@ export interface Note {
   id: string;
   title: string;
   preview: string;
+  kicker?: string; // short phrase shown above the title in the content pane
   content: string;
 }

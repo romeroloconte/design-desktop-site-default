@@ -29,34 +29,34 @@ export const dockItems: DockItemData[] = [
   {
     id: 'tool-figma',
     label: 'Figma',
-    icon: '/icons-dock/figma.png', icons: { aqua: '/icons-dock/aqua/figma.svg?v=8', classic: '/icons-dock/classic/figma.svg' },
+    icon: '/icons-dock/figma.png', icons: { aqua: '/icons-dock/aqua/figma.svg?v=11', classic: '/icons-dock/classic/figma.svg' },
     kind: 'tool',
-    dialog: { title: 'Figma', body: '[TODO] Short note about how you use Figma.', cta: 'OK' },
+    dialog: { title: 'My collaborative design workshop.', body: 'I use Figma to turn research into flows, prototypes and scalable systems—then bring product and engineering into the work early.', cta: 'Naturally.' },
   },
   {
     id: 'tool-claude',
     label: 'Claude',
-    icon: '/icons-dock/claude.png', icons: { aqua: '/icons-dock/aqua/claude.svg?v=8', classic: '/icons-dock/classic/claude.svg' },
+    icon: '/icons-dock/claude.png', icons: { aqua: '/icons-dock/aqua/claude.svg?v=11', classic: '/icons-dock/classic/claude.svg' },
     kind: 'tool',
-    dialog: { title: 'Claude', body: '[TODO] Short note about how you use Claude.', cta: 'OK' },
+    dialog: { title: 'A second perspective.', body: 'Claude helps me review long-form research, pressure-test narratives and find the details a first pass can miss.', cta: 'Look closer.' },
   },
   {
     id: 'tool-vscode',
     label: 'Visual Studio Code',
-    icon: '/icons-dock/vscode.png', icons: { aqua: '/icons-dock/aqua/vscode.svg?v=8', classic: '/icons-dock/classic/vscode.svg' },
+    icon: '/icons-dock/vscode.png', icons: { aqua: '/icons-dock/aqua/vscode.svg?v=11', classic: '/icons-dock/classic/vscode.svg' },
     kind: 'tool',
-    dialog: { title: 'Visual Studio Code', body: '[TODO] Short note about how you use Visual Studio Code.', cta: 'OK' },
+    dialog: { title: 'Where design meets code.', body: 'I use VS Code to build and test my own prototypes, so ideas reach real interaction and real constraints before handoff.', cta: 'Ship it.' },
   },
-  { id: 'github', label: 'GitHub', icon: '/icons-dock/github.svg', icons: { aqua: '/icons-dock/aqua/github.svg?v=8', classic: '/icons-dock/classic/github.svg' }, kind: 'link', href: 'https://github.com/romeroloconte' },
+  { id: 'github', label: 'GitHub', icon: '/icons-dock/github.svg', icons: { aqua: '/icons-dock/aqua/github.svg?v=11', classic: '/icons-dock/classic/github.svg' }, kind: 'link', href: 'https://github.com/romeroloconte' },
   {
     id: 'tool-terminal',
     label: 'Terminal',
-    icon: '/icons-dock/terminal.png', icons: { aqua: '/icons-dock/aqua/terminal.svg?v=8', classic: '/icons-dock/classic/terminal.svg' },
+    icon: '/icons-dock/terminal.png', icons: { aqua: '/icons-dock/aqua/terminal.svg?v=12', classic: '/icons-dock/classic/terminal.svg' },
     kind: 'tool',
-    dialog: { title: 'Terminal', body: '[TODO] Short note about how you use Terminal.', cta: 'OK' },
+    dialog: { title: 'Closer to the metal.', body: 'I use Terminal to run, tweak and deploy projects like this one, and to speak the same language as the engineers I work with.', cta: 'Run it.' },
   },
-  { id: 'notes', label: 'Notes', icon: '/icons-dock/notes.png', icons: { aqua: '/icons-dock/aqua/notes.png?v=4', classic: '/icons-dock/classic/notes.svg' }, kind: 'notes' },
-  { id: 'linkedin', label: 'LinkedIn', icon: '/icons-dock/linkedin.svg', icons: { aqua: '/icons-dock/aqua/linkedin.svg?v=8', classic: '/icons-dock/classic/linkedin.svg' }, kind: 'browser', href: 'https://www.linkedin.com/in/romeroloconte/' },
+  { id: 'notes', label: 'Notes', icon: '/icons-dock/notes.png', icons: { aqua: '/icons-dock/aqua/notes.svg?v=3', classic: '/icons-dock/classic/notes.svg' }, kind: 'notes' },
+  { id: 'linkedin', label: 'LinkedIn', icon: '/icons-dock/linkedin.svg', icons: { aqua: '/icons-dock/aqua/linkedin.svg?v=11', classic: '/icons-dock/classic/linkedin.svg' }, kind: 'browser', href: 'https://www.linkedin.com/in/romeroloconte/' },
   {
     id: 'trash',
     label: 'Trash',
@@ -69,14 +69,14 @@ export const dockItems: DockItemData[] = [
 export const dockSeparatorsAfter = ['tool-terminal'];
 
 export const notes: Note[] = [
-  { id: 'about', title: 'About', preview: 'I am a UX/UI Designer, with +6 years of experience, adopting a strategic approach to end-to-end digital products.',
+  { id: 'about', title: 'About', kicker: 'Who I am', preview: 'I am a UX/UI Designer, with +6 years of experience, adopting a strategic approach to end-to-end digital products.',
     content: [
       'I am a UX/UI Designer, with +6 years of experience, adopting a strategic approach to end-to-end digital products.',
       'My background spans various industries with complex projects, primarily in banking, alongside experience in logistics and retail products, designing solutions that balance user experience and needs with business goals.',
       'Degree in Advertising Art Direction with over 12 years of experience in the agency and creative studio ecosystem.',
     ].join('\n\n'),
   },
-  { id: 'interests', title: 'Interests', preview: 'Scale is the true challenge of product design. As a product grows, a lack of visual and technical cohesion…',
+  { id: 'interests', title: 'Interests', kicker: 'What I care about', preview: 'Scale is the true challenge of product design. As a product grows, a lack of visual and technical cohesion…',
     content: [
       "# Scale is the true challenge of product design.\nAs a product grows, a lack of visual and technical cohesion can emerge, creating friction in the user experience that ultimately fragments usability.\nMy work focuses on connecting product decisions through solid flows—turning friction into efficient experiences and consistent products.",
       "# Component Anatomy & Behavior.\nAnalyzing continuous screens allows us to identify inconsistencies, reuse components, and align behaviors with real user needs.\n# Efficiency for Designers & Developers.\nWith technical documentation detailing behaviors, tokens, and spacing, we guarantee an efficient handoff. We don't just design screens—we create a clear system for development, product, and other stakeholders. This reduces friction in the codebase by aligning Figma with Storybook, ensuring both designers and developers understand the true scope and capabilities of every component.\n# Accessibility Assurance (A11Y).\nAccessibility is non-negotiable. It is documented to ensure every component complies with WCAG standards—defining contrast ratios, keyboard navigation, and specific behaviors so the product remains inclusive and compliant with current regulations.",
@@ -84,7 +84,7 @@ export const notes: Note[] = [
       "# Skills & Expertise\n**UX Product Design:** Wireframing (Lo-Fi/Hi-Fi) · UX Flows · Behavior Design · Screen Analysis\n**UI & Design Systems:** Banking · UI Engineering · Atomic Design · Component Libraries · Anatomy · Taxonomy · Pixel-Perfect · Dashboards & CRMs\n**Accessibility & Standards:** Accessibility · Analysis (WCAG) · Responsive Web Design · Material Design · Human Interface Guidelines\n**Design & Documentation:** Figma · Design Systems · Technical Project Documentation · Design Ops · Layouts · Accessibility\n**Front-End Development:** HTML5 · CSS3 · Bootstrap · Tailwind · Frameworks Frontend · Terminal · Github · Vercel\n**Collaboration & AI Tools:** Jira · Confluence · Claude",
     ].join('\n\n'),
   },
-  { id: 'cv', title: 'CV', preview: 'User Experience Consultant at Amaris Consulting · Design Systems Designer, Banking…',
+  { id: 'cv', title: 'CV', kicker: 'My journey', preview: 'User Experience Consultant at Amaris Consulting · Design Systems Designer, Banking…',
     content: [
       "# User Experience Consultant\n@ Amaris Consulting\n~ Jul 2026 – Present",
       "# User Experience Consultant · Design Systems Designer\n@ Amaris Consulting\n~ Oct 2023 – Jul 2026\n+ Banking client\n• Managed and maintained **component libraries** and documentation, keeping components and docs coherent and consistent.\n• Continuously reviewed component repositories so the development team implemented changes and improvements correctly; resolved UI questions from design and development teams.\n• Ran **screen analysis** to ensure consistency case by case.\n• Owned the **Component Change Request** lifecycle: fixed bugs, and onboarded or deprecated components requested by the UX/UI team. Removed dependencies between releases, handled error corrections and controlled version publishing.\n• Wrote **component documentation** detailing structure, behavior and specific use cases, with traceability and history of each component so stakeholders understand its evolution and needs.\n• Planned and ran **audits** to identify and deprecate unused components, keeping the system aligned with core releases and libraries.",
