@@ -109,15 +109,15 @@ export function Frame({
 
   // Resize from the bottom-right corner. The window is centred, so shift it by half the
   // growth to keep the top-left corner where it is.
-  const sizing = useRef<{ px: number; py: number; w: number; h: number; x: number; y: number } | null>(null);
-  const onSizeDown = (e: PointerEvent<HTMLSpanElement>) => {
+  const sizing = useRef<{ sx: number; sy: number; px: number; py: number; w: number; h: number; x: number; y: number } | null>(null);
+  const onSizeDown = (e: PointerEvent<HTMLSpanElement>, sx: number, sy: number) => {
     const el = ref.current;
     if (!el || e.button !== 0 || f.isExpanded) return;
     e.stopPropagation();
     f.onFocus();
     e.currentTarget.setPointerCapture(e.pointerId);
     const r = el.getBoundingClientRect();
-    sizing.current = { px: e.clientX, py: e.clientY, w: r.width, h: r.height, ...pos.current };
+    sizing.current = { sx, sy, px: e.clientX, py: e.clientY, w: r.width, h: r.height, ...pos.current };
     setDragging(true);
   };
   const onSizeMove = (e: PointerEvent<HTMLSpanElement>) => {
@@ -125,14 +125,14 @@ export function Frame({
     const el = ref.current;
     if (!s || !el) return;
     const minW = window.innerWidth <= 720 ? 220 : 360;
-    const w = Math.max(minW, Math.min(window.innerWidth, s.w + e.clientX - s.px));
-    const h = Math.max(240, Math.min(window.innerHeight - 28, s.h + e.clientY - s.py));
+    const w = Math.max(minW, Math.min(window.innerWidth, s.w + s.sx * (e.clientX - s.px)));
+    const h = Math.max(240, Math.min(window.innerHeight - 28, s.h + s.sy * (e.clientY - s.py)));
     el.style.width = `${w}px`;
     el.style.height = `${h}px`;
     // Phones size browser windows through these (CSS !important beats the inline size).
     el.style.setProperty('--rw', `${w}px`);
     el.style.setProperty('--rh', `${h}px`);
-    pos.current = { x: s.x + (w - s.w) / 2, y: s.y + (h - s.h) / 2 };
+    pos.current = { x: s.x + (s.sx * (w - s.w)) / 2, y: s.y + (s.sy * (h - s.h)) / 2 };
     el.style.setProperty('--dx', `${pos.current.x}px`);
     el.style.setProperty('--dy', `${pos.current.y}px`);
   };
@@ -158,14 +158,17 @@ export function Frame({
         onPointerCancel={onUp}
       >
         {children}
-        <span
-          className="resize-handle"
-          aria-hidden="true"
-          onPointerDown={onSizeDown}
-          onPointerMove={onSizeMove}
-          onPointerUp={onSizeUp}
-          onPointerCancel={onSizeUp}
-        />
+        {([['nw', -1, -1], ['ne', 1, -1], ['sw', -1, 1], ['se', 1, 1]] as const).map(([c, sx, sy]) => (
+          <span
+            key={c}
+            className={`resize-handle resize-handle--${c}`}
+            aria-hidden="true"
+            onPointerDown={(e) => onSizeDown(e, sx, sy)}
+            onPointerMove={onSizeMove}
+            onPointerUp={onSizeUp}
+            onPointerCancel={onSizeUp}
+          />
+        ))}
       </div>
     </div>
   );

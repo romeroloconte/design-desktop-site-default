@@ -38,13 +38,13 @@ export function BrowserWindow({ item, f }: { item: DockItemData; f: FrameProps }
         </div>
         <div className="browser-toolbar">
           <span className="browser-nav" aria-hidden="true">
-            <svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M8 2 2 8l6 6" />
+            <svg width="18" height="16" viewBox="0 0 18 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M16 8H2M8 2 2 8l6 6" />
             </svg>
-            <svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m2 2 6 6-6 6" />
+            <svg className="browser-nav__dim" width="18" height="16" viewBox="0 0 18 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M2 8h14M10 2l6 6-6 6" />
             </svg>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
               <path d="M13.5 8A5.5 5.5 0 1 1 11.9 4.1M13.5 2v3h-3" />
             </svg>
           </span>
@@ -56,7 +56,30 @@ export function BrowserWindow({ item, f }: { item: DockItemData; f: FrameProps }
           <div className="browser-url" aria-label="Address">
             <span aria-hidden="true">🔒</span>
             <span className="browser-url__text">{display}</span>
+            <span className="browser-url__tools" aria-hidden="true">
+              <svg width="18" height="16" viewBox="0 0 18 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M1 3h8M5 1v2M2.5 3c.6 3 3 5 5.5 5.5M7.5 3c-.5 3-3 6-6 7M9 15l3.5-9L16 15M10.2 12.5h4.6" />
+              </svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.2-5.9 3.2 1.2-6.5-4.8-4.6 6.6-.9z" />
+              </svg>
+            </span>
           </div>
+          <span className="browser-extras" aria-hidden="true">
+            <span className="browser-vpn">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                <circle cx="8" cy="8" r="7" fill="currentColor" stroke="none" />
+                <path d="m5.5 5.5 5 5m0-5-5 5" className="browser-vpn__x" />
+              </svg>
+              VPN
+            </span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M10 4.5a2 2 0 1 1 4 0V6h4.5v4.5H20a2 2 0 1 1 0 4h-1.5V19H14v-1.5a2 2 0 1 0-4 0V19H5.5v-4.5H7a2 2 0 1 0 0-4H5.5V6H10z" />
+            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </span>
         </div>
         {item.embed ? (
           <div className="browser-embed" style={item.embedBg ? { background: item.embedBg } : undefined}>

@@ -53,7 +53,6 @@ export function AboutMac({ current, onPick, onClose }: { current: Appearance; on
           {appearances.map((a) => (
             <button key={a.id} type="button" role="radio" aria-checked={a.id === current} data-autofocus={a.id === current || undefined} className={`about-mac__opt${a.id === current ? ' is-on' : ''}`} onClick={() => onPick(a.id)}>
               <span className={`about-mac__thumb about-mac__thumb--${a.id}`} aria-hidden="true">
-                <i className="th-bar" />
                 <i className="th-win"><b /><b /><b /></i>
                 <i className="th-dock" />
               </span>

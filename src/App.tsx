@@ -154,7 +154,7 @@ export default function App() {
 
   return (
     <main className="desktop-shell">
-      <MenuBar onApple={() => setAbout(true)} onProfile={() => open({ type: 'browser', id: profileItem.id })} onSearch={openSpotlight} onHome={() => (top ? close(top.key) : dispatch({ type: 'select', id: null }))} />
+      <MenuBar onApple={() => setAbout(true)} onProfile={() => open({ type: 'browser', id: profileItem.id })} onSearch={() => (spotlight ? closeSpotlight() : openSpotlight())} onHome={() => (top ? close(top.key) : dispatch({ type: 'select', id: null }))} />
       <Desktop
         projects={projects}
         selectedId={state.selectedFolderId}
