@@ -16,6 +16,9 @@ import { SystemDialog } from './components/SystemDialog';
 import { Spotlight } from './components/Spotlight';
 import { AboutMac } from './components/AboutMac';
 import { useAppearance } from './appearance';
+import { GetInfo, QuickLook } from './components/FinderPanels';
+import { ContextMenu, type MenuActions, type TagControl } from './components/MenuBarMenus';
+import { desktopContextMenu, folderContextMenu } from './content/menus';
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -24,6 +27,42 @@ export default function App() {
   const [spotlight, setSpotlight] = useState(false);
   const [about, setAbout] = useState(false);
   const [appearance, setAppearance] = useAppearance();
+  const [panel, setPanel] = useState<{ kind: 'info' | 'quickLook'; id: string } | null>(null);
+  const [menu, setMenu] = useState<{ id: string | null; x: number; y: number; viaKeyboard: boolean } | null>(null);
+  const [cleanUp, setCleanUp] = useState(0);
+  const [folderTags, setFolderTags] = useState<Record<string, string[]>>(() => {
+    try {
+      return JSON.parse(localStorage.getItem('folder-tags') ?? '{}');
+    } catch {
+      return {};
+    }
+  });
+  const toggleTag = useCallback((folder: string, tag: string) => {
+    setFolderTags((prev) => {
+      const cur = prev[folder] ?? [];
+      const next = { ...prev, [folder]: cur.includes(tag) ? cur.filter((t) => t !== tag) : [...cur, tag] };
+      try {
+        localStorage.setItem('folder-tags', JSON.stringify(next));
+      } catch {
+        /* ignore */
+      }
+      return next;
+    });
+  }, []);
+
+  const openPanel = useCallback((kind: 'info' | 'quickLook', id: string) => {
+    // Hand focus back to the folder on close, even when opened from a menu that is gone by then.
+    if (!document.querySelector('[role="dialog"],[role="alertdialog"]')) {
+      opener.current = document.querySelector<HTMLElement>(`[data-folder-id="${CSS.escape(id)}"]`) ?? (document.activeElement as HTMLElement);
+    }
+    setPanel({ kind, id });
+  }, []);
+  const closePanel = useCallback(() => {
+    setPanel(null);
+    const el = opener.current;
+    requestAnimationFrame(() => el?.isConnected && el.focus());
+  }, []);
+  const closeMenu = useCallback(() => setMenu(null), []);
 
   const openSpotlight = useCallback(() => {
     opener.current = document.activeElement as HTMLElement;
@@ -108,15 +147,15 @@ export default function App() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape' || spotlight || !top || top.type === 'dialog') return;
+      if (e.key !== 'Escape' || spotlight || panel || menu || about || !top || top.type === 'dialog') return;
       close(top.key);
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
-  }, [spotlight, top, close]);
+  }, [spotlight, panel, menu, about, top, close]);
 
   const [trashFull, setTrashFull] = useState(true);
-  const dockList = dockItems.map((d) => (d.id === 'trash' && !trashFull ? { ...d, icon: '/icons-dock/trash-empty.png', icons: { aqua: '/icons-dock/aqua/trash-empty.png?v=3', classic: '/icons-dock/classic/trash-empty.svg' } } : d));
+  const dockList = dockItems.map((d) => (d.id === 'trash' && !trashFull ? { ...d, icon: '/icons-dock/trash-empty.png', icons: { aqua: '/icons-dock/aqua/trash-empty.png?v=4', classic: '/icons-dock/classic/trash-empty.svg' } } : d));
 
   const onDock = (item: DockItemData) => {
     if (item.id === 'trash') return setTrashFull(false);
@@ -139,6 +178,44 @@ export default function App() {
   const tiles = wins.filter((w) => w.minimized && w.type !== 'dialog').map(tileFor);
   const runningIds = new Set(wins.filter((w) => w.type !== 'case').map((w) => w.id));
 
+  const openCase = (id: string) => {
+    dispatch({ type: 'select', id });
+    open({ type: 'case', id });
+  };
+
+  // Finder actions on the selected folder (desktop only), shared by the menu bar, the right-click menu and the keyboard.
+  const selected = isMobile ? null : projects.find((p) => p.id === state.selectedFolderId) ?? null;
+  const menuActions: MenuActions = {
+    open: selected ? () => openCase(selected.id) : undefined,
+    getInfo: selected ? () => openPanel('info', selected.id) : undefined,
+    quickLook: selected ? () => openPanel('quickLook', selected.id) : undefined,
+    cleanUp: isMobile ? undefined : () => setCleanUp((n) => n + 1),
+    appearance: () => setAbout(true),
+  };
+  const tagsFor = (id: string | null | undefined): TagControl | undefined =>
+    id ? { on: folderTags[id] ?? [], toggle: (tag) => toggleTag(id, tag) } : undefined;
+  const actionsRef = useRef(menuActions);
+  useLayoutEffect(() => {
+    actionsRef.current = menuActions;
+  });
+
+  // ⌘I Get Info, ⌘O Open, Space Quick Look: only while the desktop has focus and nothing modal is up.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.defaultPrevented || panel || menu || about || spotlight || document.querySelector('[aria-modal="true"]')) return;
+      const t = document.activeElement;
+      if (t && t !== document.body && !t.closest('.portfolio-desktop')) return;
+      const a = actionsRef.current;
+      const mod = e.metaKey || e.ctrlKey;
+      const run = mod && e.key.toLowerCase() === 'i' ? a.getInfo : mod && e.key.toLowerCase() === 'o' ? a.open : !mod && !e.altKey && e.key === ' ' ? a.quickLook : undefined;
+      if (!run) return;
+      e.preventDefault();
+      run();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [panel, menu, about, spotlight]);
+
   const frame = (w: (typeof wins)[number]): FrameProps => ({
     winKey: w.key,
     slot: w.slot,
@@ -154,16 +231,16 @@ export default function App() {
 
   return (
     <main className="desktop-shell">
-      <MenuBar onApple={() => setAbout(true)} onProfile={() => open({ type: 'browser', id: profileItem.id })} onSearch={() => (spotlight ? closeSpotlight() : openSpotlight())} onHome={() => (top ? close(top.key) : dispatch({ type: 'select', id: null }))} />
+      <MenuBar menuActions={menuActions} tags={tagsFor(selected?.id)} onApple={() => setAbout(true)} onProfile={() => open({ type: 'browser', id: profileItem.id })} onSearch={() => (spotlight ? closeSpotlight() : openSpotlight())} onHome={() => (top ? close(top.key) : dispatch({ type: 'select', id: null }))} />
       <Desktop
         projects={projects}
         selectedId={state.selectedFolderId}
         isMobile={isMobile}
         onSelect={(id) => dispatch({ type: 'select', id })}
-        onOpen={(id) => {
-          dispatch({ type: 'select', id });
-          open({ type: 'case', id });
-        }}
+        onOpen={openCase}
+        onMenu={(id, x, y, viaKeyboard) => setMenu({ id, x, y, viaKeyboard })}
+        cleanUp={cleanUp}
+        tags={folderTags}
       />
       <Dock
         items={dockList}
@@ -194,6 +271,35 @@ export default function App() {
         const item = dockItems.find((d) => d.id === w.id);
         return item && <SystemDialog key={w.key} item={item} onClose={() => close(w.key)} />;
       })}
+      {menu && (
+        <ContextMenu
+          key={`${menu.id}:${menu.x}:${menu.y}`}
+          x={menu.x}
+          y={menu.y}
+          viaKeyboard={menu.viaKeyboard}
+          items={menu.id ? folderContextMenu(projects.find((p) => p.id === menu.id)?.title ?? '') : desktopContextMenu}
+          actions={menuActions}
+          tags={tagsFor(menu.id)}
+          onClose={closeMenu}
+        />
+      )}
+      {panel && (() => {
+        const project = projects.find((p) => p.id === panel.id);
+        if (!project) return null;
+        return panel.kind === 'info' ? (
+          <GetInfo key={project.id} project={project} onClose={closePanel} />
+        ) : (
+          <QuickLook
+            key={project.id}
+            project={project}
+            onClose={closePanel}
+            onOpen={() => {
+              setPanel(null);
+              openCase(project.id);
+            }}
+          />
+        );
+      })()}
       {about && <AboutMac current={appearance} onPick={setAppearance} onClose={() => setAbout(false)} />}
       {spotlight && (
         <Spotlight

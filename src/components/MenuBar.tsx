@@ -3,6 +3,7 @@ import { IoBluetooth } from 'react-icons/io5';
 import { StatusItem } from './StatusPanel';
 import { WidgetsPanel } from './WidgetsPanel';
 import { author } from '../content/dock';
+import { MenuBarMenus, type MenuActions, type TagControl } from './MenuBarMenus';
 
 export function Clock() {
   const [now, setNow] = useState(() => new Date());
@@ -10,8 +11,8 @@ export function Clock() {
     const t = setInterval(() => setNow(new Date()), 1000 * 15);
     return () => clearInterval(t);
   }, []);
-  const date = now.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' }).replace(/\./g, '');
-  const hhmm = `${date} ${now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false })}`;
+  const date = now.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' }).replace(/,/g, '');
+  const hhmm = `${date} ${now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
   return (
     <time className="clock" dateTime={now.toISOString()}>
       {hhmm}
@@ -48,9 +49,7 @@ function MenuIcon({ name }: { name: 'wifi' | 'wifi-off' | 'keyboard' | 'mouse' |
   return <img className="menu-icon" src={`/icons-menubar/${name}.svg`} alt="" draggable={false} />;
 }
 
-const menus = ['Archivo', 'Edición', 'Visualización', 'Ir', 'Ventana', 'Ayuda'];
-
-export function MenuBar({ onSearch, onProfile, onApple }: { onHome: () => void; onSearch: () => void; onProfile: () => void; onApple: () => void }) {
+export function MenuBar({ onSearch, onProfile, onApple, menuActions, tags }: { onHome: () => void; onSearch: () => void; onProfile: () => void; onApple: () => void; menuActions?: MenuActions; tags?: TagControl }) {
   const [wifiOn, setWifiOn] = useState(true);
   return (
     <header className="menu-bar">
@@ -63,18 +62,14 @@ export function MenuBar({ onSearch, onProfile, onApple }: { onHome: () => void; 
         <button type="button" className="menu-bar__app" aria-label={`${author.name}, website`} onClick={onProfile}>
           {author.name}
         </button>
-        <nav className="menu-bar__menus" aria-hidden="true">
-          {menus.map((m) => (
-            <span key={m}>{m}</span>
-          ))}
-        </nav>
+        <MenuBarMenus actions={menuActions} tags={tags} />
       </div>
       <div className="menu-bar__right">
         <span className="menu-bar__status">
           <StatusItem kind="bluetooth">
             <IoBluetooth className="menu-icon menu-icon--glyph" />
           </StatusItem>
-          <button type="button" className="status-item__btn" aria-label="Usuario">
+          <button type="button" className="status-item__btn" aria-label="User">
             <MenuIcon name="user" />
           </button>
           <StatusItem kind="battery">
@@ -83,10 +78,10 @@ export function MenuBar({ onSearch, onProfile, onApple }: { onHome: () => void; 
           <StatusItem kind="wifi" on={wifiOn} onToggle={setWifiOn}>
             <MenuIcon name={wifiOn ? 'wifi' : 'wifi-off'} />
           </StatusItem>
-          <button type="button" className="status-item__btn" aria-label="Búsqueda Spotlight" onClick={onSearch}>
+          <button type="button" className="status-item__btn" aria-label="Spotlight Search" onClick={onSearch}>
             <MenuIcon name="search" />
           </button>
-          <button type="button" className="status-item__btn" aria-label="Centro de control">
+          <button type="button" className="status-item__btn" aria-label="Control Center">
             <MenuIcon name="controls" />
           </button>
         </span>

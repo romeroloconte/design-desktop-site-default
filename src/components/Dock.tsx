@@ -220,7 +220,7 @@ export function Dock({
               role="separator"
               tabIndex={0}
               aria-orientation="horizontal"
-              aria-label="Tamaño del Dock"
+              aria-label="Dock size"
               aria-valuemin={MIN_SIZE}
               aria-valuemax={MAX_SIZE}
               aria-valuenow={size}

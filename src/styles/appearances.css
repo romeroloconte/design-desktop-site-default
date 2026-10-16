@@ -102,7 +102,7 @@
   border-radius: 12px; padding: 4px 22px; color: #fff; background: linear-gradient(#8fc3ff 0%, #3b8cf0 48%, #1a66d6 52%, #5aa6ff 100%);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 0 0 0.5px #1a4fa0, 0 1px 2px rgba(0, 0, 0, 0.35); text-shadow: 0 -1px 0 rgba(0, 40, 120, 0.5);
 }
-[data-appearance='aqua'] .case-nav__item.is-active { background: linear-gradient(#8fc3ff, #2a74d8); color: #fff; border-radius: 12px; }
+[data-appearance='aqua'] .case-nav__item.is-active { background: linear-gradient(#8fc3ff, #2a74d8); color: #fff; }
 
 /* ============================================================
    CLASSIC — Mac OS 9 Platinum
@@ -190,9 +190,9 @@
 [data-appearance='aqua'] .status-panel__dot { background: #aeb3bd; color: #fff; }
 [data-appearance='aqua'] .status-panel__dot.is-active { background: linear-gradient(#8fc3ff, #2a74d8); }
 [data-appearance='aqua'] .status-panel__dot img { filter: brightness(0) invert(1); }
-[data-appearance='aqua'] .mswitch { background: linear-gradient(#9a9ea8, #c9ccd3); box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 0 0.5px rgba(0, 0, 0, 0.4); }
+[data-appearance='aqua'] .mswitch { border-radius: 4px; background: linear-gradient(#9a9ea8, #c9ccd3); box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 0 0.5px rgba(0, 0, 0, 0.4); }
 [data-appearance='aqua'] .mswitch[aria-checked='true'] { background: linear-gradient(#2a74d8, #7ab5f8); }
-[data-appearance='aqua'] .mswitch__knob { background: linear-gradient(#fff, #d4d6db); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 0.5px rgba(0, 0, 0, 0.3); }
+[data-appearance='aqua'] .mswitch__knob { border-radius: 3px; background: linear-gradient(#fff, #d4d6db); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 0.5px rgba(0, 0, 0, 0.3); }
 [data-appearance='aqua'] .wbat__icon { color: rgba(0, 0, 0, 0.7); }
 [data-appearance='aqua'] .wbat__icon img { filter: brightness(0); }
 
@@ -266,3 +266,101 @@
 .about-mac:active { cursor: grabbing; }
 .about-mac button { cursor: pointer; }
 @media (hover: hover) { .about-mac__bar:hover .tl::before { opacity: 1; } }
+
+/* ===== Finder menus ===== */
+[data-appearance='aqua'] .menu-bar__menu, [data-appearance='classic'] .menu-bar__menu { border-radius: 0; height: 24px; padding: 0 9px; }
+[data-appearance='classic'] .menu-bar__menu { height: 22px; padding: 0 8px; }
+[data-appearance='aqua'] .menu-bar__drop, [data-appearance='classic'] .menu-bar__drop { top: 100%; left: 0; }
+[data-appearance='aqua'] .mmenu__icon, [data-appearance='classic'] .mmenu__icon { display: none; } /* pre-Big Sur menus carry no icons */
+[data-appearance='aqua'] .mmenu__check, [data-appearance='classic'] .mmenu__check { width: 18px; }
+
+[data-appearance='aqua'] .menu-bar__menu.is-open { background: linear-gradient(#5aa2f5, #1c63cf); color: #fff; text-shadow: none; }
+[data-appearance='aqua'] .mmenu {
+  --mmenu-pad: 4px; padding: 4px 0; border-radius: 0 0 6px 6px; color: #000; font-family: 'Lucida Grande', var(--font-sans); font-size: 13.5px;
+  background: rgba(246, 246, 246, 0.96); backdrop-filter: none; -webkit-backdrop-filter: none;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.35), 0 8px 22px rgba(0, 0, 0, 0.38);
+}
+[data-appearance='aqua'] .mmenu-wrap--sub .mmenu { border-radius: 6px; }
+[data-appearance='aqua'] .mmenu__item { height: 20px; padding: 0 16px 0 6px; border-radius: 0; }
+[data-appearance='aqua'] .mmenu:not(.has-checks) .mmenu__item { padding-left: 22px; }
+[data-appearance='aqua'] .mmenu__item.is-active { background: linear-gradient(#5aa2f5, #1c63cf); color: #fff; }
+@keyframes mmenu-blink-aqua { 0% { background: transparent; color: #000; } 50% { background: #1c63cf; color: #fff; } }
+[data-appearance='aqua'] .mmenu__item.is-blink { animation-name: mmenu-blink-aqua; }
+[data-appearance='aqua'] .mmenu__item.is-disabled { color: #a5a5a5; }
+[data-appearance='aqua'] .mmenu__shortcut { color: #000; }
+[data-appearance='aqua'] .mmenu__item.is-disabled .mmenu__shortcut { color: #a5a5a5; }
+[data-appearance='aqua'] .mmenu__item.is-active .mmenu__shortcut, [data-appearance='aqua'] .mmenu__item.is-active .mmenu__hint { color: #fff; }
+[data-appearance='aqua'] .mmenu__hint, [data-appearance='aqua'] .mmenu__section { color: #6b6b6b; }
+[data-appearance='aqua'] .mmenu__sep { height: 1px; margin: 5px 0; background: rgba(0, 0, 0, 0.12); }
+[data-appearance='aqua'] .mmenu__tags { padding-left: 22px; }
+[data-appearance='aqua'] .mmenu__tag { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.45); }
+[data-appearance='aqua'] .mmenu__tag.is-on { box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.4); }
+[data-appearance='aqua'] .mmenu__search { margin: 2px 8px 6px; height: 22px; border-radius: 11px; background: #fff; color: #777; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35), 0 0 0 0.5px rgba(0, 0, 0, 0.35); }
+[data-appearance='aqua'] .mmenu__search input { color: #000; }
+[data-appearance='aqua'] .mmenu__search input::placeholder { color: #8a8a8a; }
+[data-appearance='aqua'] .mmenu__section { padding: 4px 22px; }
+
+[data-appearance='classic'] .menu-bar__menu.is-open { background: #000; color: #fff; }
+[data-appearance='classic'] .mmenu {
+  --mmenu-pad: 0px; padding: 0; color: #000; font-size: 12px; font-weight: 700; line-height: 1;
+  background: #dcdcdc; border: 1px solid #000; box-shadow: inset 1px 1px 0 #fff, 2px 2px 0 rgba(0, 0, 0, 0.45);
+}
+[data-appearance='classic'] .mmenu__item { height: 18px; padding: 0 14px 0 4px; }
+[data-appearance='classic'] .mmenu:not(.has-checks) .mmenu__item { padding-left: 16px; }
+[data-appearance='classic'] .mmenu__item.is-active { background: #000; color: #fff; }
+@keyframes mmenu-blink-classic { 0% { background: transparent; color: #000; } 50% { background: #000; color: #fff; } }
+[data-appearance='classic'] .mmenu__item.is-blink { animation-name: mmenu-blink-classic; }
+[data-appearance='classic'] .mmenu__item.is-disabled { color: #8c8c8c; }
+[data-appearance='classic'] .mmenu__shortcut { color: #000; }
+[data-appearance='classic'] .mmenu__item.is-disabled .mmenu__shortcut { color: #8c8c8c; }
+[data-appearance='classic'] .mmenu__item.is-active .mmenu__shortcut, [data-appearance='classic'] .mmenu__item.is-active .mmenu__hint { color: #fff; }
+[data-appearance='classic'] .mmenu__hint, [data-appearance='classic'] .mmenu__section { color: #555; }
+[data-appearance='classic'] .mmenu__sep { height: 2px; margin: 3px 0; background: none; border-top: 1px solid #8c8c8c; border-bottom: 1px solid #fff; }
+[data-appearance='classic'] .mmenu__tags { padding-left: 16px; }
+[data-appearance='classic'] .mmenu__tag { box-shadow: inset 0 0 0 1px #000; }
+[data-appearance='classic'] .mmenu__tag.is-on { box-shadow: inset 0 0 0 1px #000; }
+[data-appearance='classic'] .mmenu__search { margin: 4px 6px; height: 20px; background: #fff; color: #000; box-shadow: inset 1px 1px 0 #7a7a7a, inset -1px -1px 0 #fff, 0 0 0 1px #000; }
+[data-appearance='classic'] .mmenu__search input { color: #000; font-weight: 400; }
+[data-appearance='classic'] .mmenu__search input::placeholder { color: #777; }
+[data-appearance='classic'] .mmenu__section { padding: 3px 16px; }
+
+/* ===== Finder: Get Info + Quick Look ===== */
+[data-appearance='aqua'] .get-info {
+  padding: 0 14px 6px; border-radius: 8px; color: #1a1a1a; font-family: 'Lucida Grande', var(--font-sans); font-size: 11px;
+  background: repeating-linear-gradient(0deg, #f1f1f1 0 2px, #e8e8e8 2px 4px); backdrop-filter: none; -webkit-backdrop-filter: none;
+  box-shadow: 0 16px 40px rgba(0, 20, 60, 0.55), 0 0 0 0.5px rgba(0, 0, 0, 0.6);
+}
+[data-appearance='aqua'] .get-info__bar { height: 22px; margin: 0 -14px; background: linear-gradient(#ececec, #cfcfcf); border-bottom: 1px solid #8a8a8a; }
+[data-appearance='aqua'] .get-info__bar .tl { left: 8px; }
+[data-appearance='aqua'] .get-info__title { font-size: 12px; font-weight: 400; color: #1a1a1a; }
+[data-appearance='aqua'] .get-info__head span, [data-appearance='aqua'] .get-info__group dt, [data-appearance='aqua'] .get-info__text { color: #555; }
+[data-appearance='aqua'] .get-info__group { border-top-color: rgba(0, 0, 0, 0.16); }
+[data-appearance='aqua'] .get-info__group h3 { font-size: 11px; }
+[data-appearance='aqua'] .get-info__tags li { border-radius: 4px; background: rgba(0, 0, 0, 0.08); }
+[data-appearance='aqua'] .quick-look { border-radius: 8px; }
+[data-appearance='aqua'] .quick-look__bar { height: 30px; background: rgba(20, 20, 20, 0.82); font-family: 'Lucida Grande', var(--font-sans); }
+[data-appearance='aqua'] .quick-look__open { padding: 2px 12px; border-radius: 4px; background: linear-gradient(#8fc3ff, #2a74d8); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5); }
+
+[data-appearance='classic'] .get-info {
+  padding: 0 12px 6px; border-radius: 0; color: #000; background: #dcdcdc; border: 1px solid #000; font-size: 11px;
+  backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: 2px 2px 0 #000, inset 1px 1px 0 #fff;
+}
+[data-appearance='classic'] .get-info__bar { height: 20px; margin: 0 -12px; background: repeating-linear-gradient(0deg, #fff 0 1px, #bdbdbd 1px 2px); border-bottom: 1px solid #000; }
+[data-appearance='classic'] .get-info__bar .tl { left: 6px; }
+[data-appearance='classic'] .get-info__title { padding: 0 6px; background: #dcdcdc; color: #000; font-size: 12px; font-weight: 700; }
+[data-appearance='classic'] .get-info__head span, [data-appearance='classic'] .get-info__group dt, [data-appearance='classic'] .get-info__text { color: #3d3d3d; }
+[data-appearance='classic'] .get-info__group { border-top: 1px solid #8c8c8c; box-shadow: inset 0 1px 0 #fff; }
+[data-appearance='classic'] .get-info__tags li { border-radius: 0; background: #fff; border: 1px solid #000; }
+[data-appearance='classic'] .quick-look { border-radius: 0; border: 1px solid #000; box-shadow: 2px 2px 0 #000; }
+[data-appearance='classic'] .quick-look__bar { height: 22px; background: repeating-linear-gradient(0deg, #fff 0 1px, #bdbdbd 1px 2px); color: #000; border-bottom: 1px solid #000; }
+[data-appearance='classic'] .quick-look__title { flex: none; margin: 0 auto; padding: 0 6px; background: #dcdcdc; font-weight: 700; }
+[data-appearance='classic'] .quick-look__btn { width: 18px; height: 16px; border-radius: 0; border: 1px solid #000; background: #dcdcdc; font-size: 11px; }
+[data-appearance='classic'] .quick-look__open { padding: 1px 10px; border-radius: 0; border: 1px solid #000; background: #dcdcdc; color: #000; box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #7a7a7a; }
+
+/* ===== Finder colour tags on folders ===== */
+[data-appearance='aqua'] .mmenu__tag.is-focus, [data-appearance='classic'] .mmenu__tag.is-focus { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.45); }
+[data-appearance='classic'] .project-folder__tags i { border-radius: 0; box-shadow: 0 0 0 1px #000; }
+[data-appearance='classic'] .project-folder__tags i + i { margin-left: 2px; }
+
+[data-appearance='aqua'] .get-info__icon { content: url('/icons-dock/folder-aqua.png'); }
+[data-appearance='classic'] .get-info__icon { content: url('/icons-dock/folder-classic.svg'); image-rendering: pixelated; }

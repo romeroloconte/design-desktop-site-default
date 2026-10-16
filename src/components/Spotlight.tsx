@@ -15,9 +15,9 @@ interface Result {
 
 const categories: { id: Category; label: string; Icon: typeof IoSearch }[] = [
   { id: 'apps', label: 'Apps', Icon: IoLogoAppleAppstore },
-  { id: 'folders', label: 'Proyectos', Icon: IoFolderOutline },
-  { id: 'links', label: 'Enlaces', Icon: IoLayersOutline },
-  { id: 'notes', label: 'Notas', Icon: IoCopyOutline },
+  { id: 'folders', label: 'Projects', Icon: IoFolderOutline },
+  { id: 'links', label: 'Links', Icon: IoLayersOutline },
+  { id: 'notes', label: 'Notes', Icon: IoCopyOutline },
 ];
 
 interface Props {
@@ -42,16 +42,16 @@ export function Spotlight({ projects, dockItems, notes, onProject, onDockItem, o
     return [
       ...dockItems
         .filter((d) => d.kind === 'tool')
-        .map((d) => ({ key: d.id, category: 'apps' as const, label: d.label, hint: 'Aplicación', run: done(() => onDockItem(d)) })),
+        .map((d) => ({ key: d.id, category: 'apps' as const, label: d.label, hint: 'Application', run: done(() => onDockItem(d)) })),
       ...projects.map((p) => ({ key: p.id, category: 'folders' as const, label: p.title, hint: p.category, run: done(() => onProject(p.id)) })),
       ...dockItems
         .filter((d) => d.kind === 'link' || d.kind === 'browser')
-        .map((d) => ({ key: d.id, category: 'links' as const, label: d.label, hint: 'Enlace', run: done(() => onDockItem(d)) })),
+        .map((d) => ({ key: d.id, category: 'links' as const, label: d.label, hint: 'Link', run: done(() => onDockItem(d)) })),
       ...notes.map((n) => ({
         key: n.id,
         category: 'notes' as const,
         label: n.title,
-        hint: 'Nota',
+        hint: 'Note',
         run: done(() => onDockItem(dockItems.find((d) => d.kind === 'notes')!)),
       })),
     ];
@@ -75,7 +75,7 @@ export function Spotlight({ projects, dockItems, notes, onProject, onDockItem, o
 
   return (
     <div className="window-layer window-layer--spotlight" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div ref={ref} className="spotlight" role="dialog" aria-modal="true" aria-label="Búsqueda Spotlight">
+      <div ref={ref} className="spotlight" role="dialog" aria-modal="true" aria-label="Spotlight Search">
         <div className="spotlight__row">
           <label className="spotlight__field">
             <IoSearch aria-hidden="true" />
@@ -86,7 +86,7 @@ export function Spotlight({ projects, dockItems, notes, onProject, onDockItem, o
               aria-expanded={results.length > 0}
               aria-controls={listId}
               aria-activedescendant={results[active] ? `${listId}-${active}` : undefined}
-              placeholder="Búsqueda Spotlight"
+              placeholder="Spotlight Search"
               autoComplete="off"
               spellCheck={false}
               value={query}

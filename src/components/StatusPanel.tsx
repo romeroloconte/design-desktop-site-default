@@ -18,31 +18,31 @@ function Switch({ on, onChange, label }: { on: boolean; onChange: (v: boolean) =
 }
 
 type Kind = 'bluetooth' | 'wifi' | 'battery';
-const labels: Record<Kind, string> = { bluetooth: 'Bluetooth', wifi: 'Wi-Fi', battery: 'Batería' };
+const labels: Record<Kind, string> = { bluetooth: 'Bluetooth', wifi: 'Wi-Fi', battery: 'Battery' };
 
 function BatteryPanel() {
   return (
-    <div className="status-panel" role="dialog" aria-label="Batería">
+    <div className="status-panel" role="dialog" aria-label="Battery">
       <div className="status-panel__head">
-        <strong>Batería</strong>
+        <strong>Battery</strong>
         <span className="status-panel__meta">100 %</span>
       </div>
       <div className="status-panel__text">
-        <p>Alimentación: adaptador de corriente</p>
-        <p>Totalmente cargada</p>
+        <p>Power Source: Power Adapter</p>
+        <p>Battery Is Charged</p>
       </div>
       <div className="status-panel__sep" />
-      <p className="status-panel__section"><strong>Modo de energía</strong></p>
+      <p className="status-panel__section"><strong>Energy Mode</strong></p>
       <div className="status-panel__row">
         <span className="status-panel__dot status-panel__dot--flat">
           <img src="/icons-menubar/battery-low.svg" alt="" draggable={false} />
         </span>
-        <span className="status-panel__name">Bajo consumo</span>
+        <span className="status-panel__name">Low Power</span>
       </div>
       <div className="status-panel__sep" />
-      <p className="status-panel__section">Ninguna app consume mucha energía</p>
+      <p className="status-panel__section">No Apps Using Significant Energy</p>
       <div className="status-panel__sep" />
-      <div className="status-panel__foot">Ajustes de la batería…</div>
+      <div className="status-panel__foot">Battery Settings…</div>
     </div>
   );
 }
@@ -81,11 +81,11 @@ function Panel({ kind, on, setOn }: { kind: 'bluetooth' | 'wifi'; on: boolean; s
       ) : (
         <>
           <div className="status-panel__row status-panel__row--warn">
-            <span>Nivel de seguridad bajo…</span>
+            <span>Weak Security…</span>
             <IoWarning aria-hidden="true" />
           </div>
           <div className="status-panel__sep" />
-          <p className="status-panel__section">Red conocida</p>
+          <p className="status-panel__section">Known Network</p>
           <div className={`status-panel__row${on ? '' : ' is-off'}`}>
             <span className={`status-panel__dot${on ? ' is-active' : ''}`}>
               <IoWifi aria-hidden="true" />
@@ -95,13 +95,13 @@ function Panel({ kind, on, setOn }: { kind: 'bluetooth' | 'wifi'; on: boolean; s
           </div>
           <div className="status-panel__sep" />
           <div className="status-panel__row status-panel__row--muted">
-            <span>Otras redes</span>
+            <span>Other Networks</span>
             <IoChevronForward aria-hidden="true" />
           </div>
         </>
       )}
       <div className="status-panel__sep" />
-      <div className="status-panel__foot">{isBt ? 'Ajustes de Bluetooth…' : 'Ajustes de Wi-Fi…'}</div>
+      <div className="status-panel__foot">{isBt ? 'Bluetooth Settings…' : 'Wi-Fi Settings…'}</div>
     </div>
   );
 }

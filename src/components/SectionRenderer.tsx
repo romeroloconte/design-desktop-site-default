@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Media, Section } from '../content/types';
 
-function MediaBlock({ media }: { media: Media }) {
+export function MediaBlock({ media }: { media: Media }) {
   if (media.embed) {
     return (
       <figure className="media">

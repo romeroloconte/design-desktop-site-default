@@ -6,13 +6,13 @@ const cities = [
   { name: 'Caracas', tz: 'America/Caracas' },
   { name: 'Bogotá', tz: 'America/Bogota' },
   { name: 'Miami', tz: 'America/New_York' },
-  { name: 'Los Ángeles', tz: 'America/Los_Angeles' },
+  { name: 'Los Angeles', tz: 'America/Los_Angeles' },
 ];
 
 const devices: { label: string; pct: number; icon: 'laptop' | 'keyboard' | 'mouse' }[] = [
   { label: 'MacBook', pct: 100, icon: 'laptop' },
-  { label: 'Teclado', pct: 75, icon: 'keyboard' },
-  { label: 'Ratón', pct: 58, icon: 'mouse' },
+  { label: 'Keyboard', pct: 75, icon: 'keyboard' },
+  { label: 'Mouse', pct: 58, icon: 'mouse' },
 ];
 
 /** Wall-clock parts of `date` in time zone `tz`. */
@@ -76,7 +76,7 @@ export function WidgetsPanel() {
 
   return (
     <div className="widgets" role="dialog" aria-label="Widgets">
-      <section className="widget widget--clocks" aria-label="Relojes del mundo">
+      <section className="widget widget--clocks" aria-label="World clocks">
         {cities.map((c) => {
           const z = zoned(now, c.tz);
           const diff = Math.round(((asUtc(z) - asUtc(local)) / 3600000) * 2) / 2;
@@ -85,13 +85,13 @@ export function WidgetsPanel() {
             <div key={c.tz} className="wcity">
               <AnalogClock h={z.h} m={z.m} s={z.s} />
               <strong>{c.name}</strong>
-              <span>{day < 0 ? 'Ayer' : day > 0 ? 'Mañana' : 'Hoy'}</span>
-              <span>{diff === 0 ? '0 h' : `${diff > 0 ? '+' : '−'}${Math.abs(diff)} h`}</span>
+              <span>{day < 0 ? 'Yesterday' : day > 0 ? 'Tomorrow' : 'Today'}</span>
+              <span>{diff === 0 ? '+0HRS' : `${diff > 0 ? '+' : '−'}${Math.abs(diff)}HRS`}</span>
             </div>
           );
         })}
       </section>
-      <section className="widget widget--batteries" aria-label="Baterías">
+      <section className="widget widget--batteries" aria-label="Batteries">
         {devices.map((d) => (
           <div key={d.label} className="wbat" role="img" aria-label={`${d.label} ${d.pct} %`}>
             <div className="wbat__ring">
