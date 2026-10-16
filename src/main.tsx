@@ -5,6 +5,9 @@ import './styles/global.css';
 import './styles/appearances.css';
 import App from './App';
 import { TokensPage } from './components/TokensPage';
+import { author } from './content/dock';
+
+document.title = `${author.name} — ${author.role}`;
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

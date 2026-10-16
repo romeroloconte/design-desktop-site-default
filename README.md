@@ -1,6 +1,6 @@
 # Design Desktop Site
 
-Portfolio personal de Product Designer de **Luis Romero**, construido con la metáfora de un escritorio de sistema operativo (estilo macOS): barra de menú, carpetas de proyecto, ventanas de case study y dock.
+Plantilla de portfolio personal, construida con la metáfora de un escritorio de sistema operativo (estilo macOS): barra de menú, carpetas de proyecto, ventanas de case study y dock.
 
 ## Características
 
@@ -49,10 +49,23 @@ src/
 public/          Iconos, imágenes y assets estáticos
 ```
 
+## Personalizar con tu data
+
+Todo el contenido personal vive en `src/content/`. Busca `[TODO]` para ver qué falta completar.
+
+1. **`src/content/dock.ts` → `author`**: nombre, monograma, rol, titular, disponibilidad y links. La barra de menú, el título de la pestaña, About This Mac y la tarjeta de perfil leen de aquí.
+   - `links.website` apunta a [romeroloconte.com](https://romeroloconte.com/) (autor de la plantilla) hasta que pongas el tuyo.
+   - `links.github`, `links.linkedin` y `links.spotifyPlaylist` vienen vacíos: mientras lo estén, su ventana muestra una tarjeta que indica dónde agregarlos.
+2. **`src/content/dock.ts` → `notes`**: About, Interests, CV y Certifications de la app Notes.
+3. **`src/content/dock.ts` → `dockItems`**: textos de los diálogos de cada app del dock (agrega o quita apps).
+4. **`src/content/projects.ts`**: tus case studies.
+5. **`public/images/`**: fondos de escritorio y móvil.
+
+## Créditos
+
+Plantilla diseñada y desarrollada por [Luis Romero](https://romeroloconte.com/). El crédito aparece en About This Mac (`credit` en `src/content/dock.ts`).
+
 ## Contenido
 
 Los proyectos se definen en `src/content/projects.ts` siguiendo los tipos de `src/content/types.ts`. Cada proyecto se compone de secciones tipadas (hero, intro, lista numerada, proceso, etc.) que renderiza `SectionRenderer`.
 
-## Licencia
-
-Todos los derechos reservados © Luis Romero.

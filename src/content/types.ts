@@ -139,6 +139,8 @@ export interface DockItemData {
   href?: string;
   embed?: string; // iframe-able URL shown inside the browser window
   embedBg?: string; // backdrop behind the iframe, matched to the embed colour
+  /** Shown in the browser window while `href` is still empty, telling the owner what to fill in. */
+  setup?: { title: string; body: string; example: string };
 }
 
 export interface Note {

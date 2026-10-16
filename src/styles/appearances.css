@@ -24,6 +24,7 @@
 .about-mac__specs { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 12px; margin: 0; padding-top: 12px; border-top: 0.5px solid rgba(255, 255, 255, 0.14); font-size: var(--fs-xs); }
 .about-mac__specs dt { text-align: right; font-weight: var(--fw-semibold); }
 .about-mac__specs dd { margin: 0; text-align: left; color: var(--dialog-text-muted); }
+.about-mac__specs a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 
 /* tiny desktop thumbnails, one per appearance */
 .about-mac__thumb { position: relative; display: block; width: 84px; height: 56px; overflow: hidden; border-radius: 6px; box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.3); }

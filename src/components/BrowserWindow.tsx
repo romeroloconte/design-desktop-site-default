@@ -7,12 +7,14 @@ import { Frame, type FrameProps } from './CaseWindow';
 
 // LinkedIn sends X-Frame-Options/frame-ancestors, so the real site cannot be
 // embedded. This window simulates Firefox around a profile card instead.
+// While a link is still empty, a setup card tells the owner where to add it.
 export function BrowserWindow({ item, f }: { item: DockItemData; f: FrameProps }) {
   const titleId = useId();
   const isMobile = useIsMobile();
   const icon = useItemIcon(item);
-  const href = item.href ?? 'https://www.linkedin.com';
-  const display = href.replace(/^https?:\/\//, '');
+  const setup = !item.href && !item.embed ? item.setup : undefined;
+  const href = item.href ?? '';
+  const display = setup ? setup.example : href.replace(/^https?:\/\//, '');
   const about = notes.find((n) => n.id === 'about');
   const title = item.embed ? item.label : `${author.name} | ${item.label}`;
 
@@ -81,7 +83,19 @@ export function BrowserWindow({ item, f }: { item: DockItemData; f: FrameProps }
             </svg>
           </span>
         </div>
-        {item.embed ? (
+        {setup ? (
+          <div className="browser-page browser-setup">
+            <div className="browser-setup__card">
+              <img src={icon} alt="" width={56} height={56} draggable={false} />
+              <h3 className="browser-setup__title">{setup.title}</h3>
+              <p className="browser-setup__body">{setup.body}</p>
+              <code className="browser-setup__example">{setup.example}</code>
+              <button type="button" className="li-cta" onClick={f.onClose} data-autofocus>
+                Got it
+              </button>
+            </div>
+          </div>
+        ) : item.embed ? (
           <div className="browser-embed" style={item.embedBg ? { background: item.embedBg } : undefined}>
             <iframe
               className="browser-frame"
@@ -99,7 +113,7 @@ export function BrowserWindow({ item, f }: { item: DockItemData; f: FrameProps }
               {author.monogram}
             </span>
             <h3 className="li-name">{author.name}</h3>
-            <p className="li-headline">UX/UI Designer · End-to-end digital products</p>
+            <p className="li-headline">{author.headline}</p>
             <p className="li-meta">{author.availability}</p>
             <p className="li-about">{about?.preview}</p>
             <a className="li-cta" href={href} target="_blank" rel="noopener noreferrer" data-autofocus>

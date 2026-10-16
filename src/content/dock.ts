@@ -1,10 +1,30 @@
 import type { DockItemData, Note } from './types';
 
+/**
+ * Who the portfolio belongs to. Edit this block (and the notes below) to make the site yours.
+ * Everything else in the UI reads from here.
+ */
 export const author = {
-  name: 'Luis Romero',
-  monogram: 'LR',
+  name: 'Your Name',
+  monogram: 'YN',
+  role: 'Product Designer',
+  headline: 'Product Designer · End-to-end digital products',
   availability: 'Available for select work',
+  /** Leave a link empty and its window shows a short guide on where to add it. */
+  links: {
+    /** Opened from your name in the menu bar. Points to the template author until you change it. */
+    website: 'https://romeroloconte.com/',
+    github: '',
+    linkedin: '',
+    /** Spotify playlist id: the part after /playlist/ in its URL. */
+    spotifyPlaylist: '',
+  },
 };
+
+/** Template credit, shown in About This Mac. */
+export const credit = { name: 'Luis Romero', url: 'https://romeroloconte.com/' };
+
+const playlist = author.links.spotifyPlaylist;
 
 /** Opened from the menu bar name; not shown in the dock. */
 export const profileItem: DockItemData = {
@@ -12,8 +32,8 @@ export const profileItem: DockItemData = {
   label: 'Website',
   icon: '/icons-dock/folder.png',
   kind: 'browser',
-  href: 'https://romeroloconte.com/',
-  embed: 'https://romeroloconte.com/',
+  href: author.links.website,
+  embed: author.links.website,
 };
 
 export const dockItems: DockItemData[] = [
@@ -22,41 +42,48 @@ export const dockItems: DockItemData[] = [
     label: 'Spotify',
     icon: '/icons-dock/spotify.png', icons: { aqua: '/icons-dock/aqua/spotify.png?v=3', classic: '/icons-dock/classic/spotify.svg' },
     kind: 'browser',
-    href: 'https://open.spotify.com/playlist/5smJLAO41GMW6S7GivBlTP',
-    embed: 'https://open.spotify.com/embed/playlist/5smJLAO41GMW6S7GivBlTP',
+    href: playlist ? `https://open.spotify.com/playlist/${playlist}` : undefined,
+    embed: playlist ? `https://open.spotify.com/embed/playlist/${playlist}` : undefined,
     embedBg: '#832f12',
+    setup: {
+      title: 'Add your favorite playlist',
+      body: 'Share the music you work to. Paste a Spotify playlist id into author.links.spotifyPlaylist in src/content/dock.ts and it plays right here.',
+      example: 'open.spotify.com/playlist/your-playlist-id',
+    },
   },
   {
     id: 'tool-figma',
     label: 'Figma',
     icon: '/icons-dock/figma.png', icons: { aqua: '/icons-dock/aqua/figma.svg?v=11', classic: '/icons-dock/classic/figma.svg' },
     kind: 'tool',
-    dialog: { title: 'My collaborative design workshop.', body: 'I use Figma to turn research into flows, prototypes and scalable systems—then bring product and engineering into the work early.', cta: 'Naturally.' },
+    dialog: { title: '[TODO] One-line title.', body: '[TODO] How you use Figma in your work.', cta: 'Got it.' },
   },
   {
     id: 'tool-claude',
     label: 'Claude',
     icon: '/icons-dock/claude.png', icons: { aqua: '/icons-dock/aqua/claude.svg?v=11', classic: '/icons-dock/classic/claude.svg' },
     kind: 'tool',
-    dialog: { title: 'A second perspective.', body: 'Claude helps me review long-form research, pressure-test narratives and find the details a first pass can miss.', cta: 'Look closer.' },
+    dialog: { title: '[TODO] One-line title.', body: '[TODO] How you use Claude in your work.', cta: 'Got it.' },
   },
   {
     id: 'tool-vscode',
     label: 'Visual Studio Code',
     icon: '/icons-dock/vscode.png', icons: { aqua: '/icons-dock/aqua/vscode.svg?v=11', classic: '/icons-dock/classic/vscode.svg' },
     kind: 'tool',
-    dialog: { title: 'Where design meets code.', body: 'I use VS Code to build and test my own prototypes, so ideas reach real interaction and real constraints before handoff.', cta: 'Ship it.' },
+    dialog: { title: '[TODO] One-line title.', body: '[TODO] How you use VS Code in your work.', cta: 'Got it.' },
   },
-  { id: 'github', label: 'GitHub', icon: '/icons-dock/github.svg', icons: { aqua: '/icons-dock/aqua/github.svg?v=11', classic: '/icons-dock/classic/github.svg' }, kind: 'link', href: 'https://github.com/romeroloconte' },
+  { id: 'github', label: 'GitHub', icon: '/icons-dock/github.svg', icons: { aqua: '/icons-dock/aqua/github.svg?v=11', classic: '/icons-dock/classic/github.svg' }, kind: 'browser', href: author.links.github || undefined,
+    setup: { title: 'Add your GitHub', body: 'Show your code. Put your profile URL in author.links.github in src/content/dock.ts.', example: 'github.com/your-username' } },
   {
     id: 'tool-terminal',
     label: 'Terminal',
     icon: '/icons-dock/terminal.png', icons: { aqua: '/icons-dock/aqua/terminal.svg?v=12', classic: '/icons-dock/classic/terminal.svg' },
     kind: 'tool',
-    dialog: { title: 'Closer to the metal.', body: 'I use Terminal to run, tweak and deploy projects like this one, and to speak the same language as the engineers I work with.', cta: 'Run it.' },
+    dialog: { title: '[TODO] One-line title.', body: '[TODO] How you use Terminal in your work.', cta: 'Got it.' },
   },
   { id: 'notes', label: 'Notes', icon: '/icons-dock/notes.png', icons: { aqua: '/icons-dock/aqua/notes.svg?v=3', classic: '/icons-dock/classic/notes.svg' }, kind: 'notes' },
-  { id: 'linkedin', label: 'LinkedIn', icon: '/icons-dock/linkedin.svg', icons: { aqua: '/icons-dock/aqua/linkedin.svg?v=11', classic: '/icons-dock/classic/linkedin.svg' }, kind: 'browser', href: 'https://www.linkedin.com/in/romeroloconte/' },
+  { id: 'linkedin', label: 'LinkedIn', icon: '/icons-dock/linkedin.svg', icons: { aqua: '/icons-dock/aqua/linkedin.svg?v=11', classic: '/icons-dock/classic/linkedin.svg' }, kind: 'browser', href: author.links.linkedin || undefined,
+    setup: { title: 'Add your LinkedIn', body: 'Let people see your experience. Put your profile URL in author.links.linkedin in src/content/dock.ts.', example: 'linkedin.com/in/your-username' } },
   {
     id: 'trash',
     label: 'Trash',
@@ -68,43 +95,42 @@ export const dockItems: DockItemData[] = [
 /** Index where each group ends; a separator is drawn after it. */
 export const dockSeparatorsAfter = ['tool-terminal'];
 
+/**
+ * Notes app content. Inside `content`: `# ` heading, `**bold**`, `• ` bullet,
+ * `@ ` company, `~ ` dates/place, `+ ` context line. Blocks are separated by a blank line.
+ */
 export const notes: Note[] = [
-  { id: 'about', title: 'About', kicker: 'Who I am', preview: 'I am a UX/UI Designer, with +6 years of experience, adopting a strategic approach to end-to-end digital products.',
+  { id: 'about', title: 'About', kicker: 'Who I am', preview: '[TODO] One or two sentences introducing yourself.',
     content: [
-      'I am a UX/UI Designer, with +6 years of experience, adopting a strategic approach to end-to-end digital products.',
-      'My background spans various industries with complex projects, primarily in banking, alongside experience in logistics and retail products, designing solutions that balance user experience and needs with business goals.',
-      'Degree in Advertising Art Direction with over 12 years of experience in the agency and creative studio ecosystem.',
+      '[TODO] One or two sentences introducing yourself: your role, years of experience and focus.',
+      '[TODO] Industries and kinds of products you have worked on.',
+      '[TODO] Education or background.',
     ].join('\n\n'),
   },
-  { id: 'interests', title: 'Interests', kicker: 'What I care about', preview: 'Scale is the true challenge of product design. As a product grows, a lack of visual and technical cohesion…',
+  { id: 'interests', title: 'Interests', kicker: 'What I care about', preview: '[TODO] The topics you care about most in your work.',
     content: [
-      "# Scale is the true challenge of product design.\nAs a product grows, a lack of visual and technical cohesion can emerge, creating friction in the user experience that ultimately fragments usability.\nMy work focuses on connecting product decisions through solid flows—turning friction into efficient experiences and consistent products.",
-      "# Component Anatomy & Behavior.\nAnalyzing continuous screens allows us to identify inconsistencies, reuse components, and align behaviors with real user needs.\n# Efficiency for Designers & Developers.\nWith technical documentation detailing behaviors, tokens, and spacing, we guarantee an efficient handoff. We don't just design screens—we create a clear system for development, product, and other stakeholders. This reduces friction in the codebase by aligning Figma with Storybook, ensuring both designers and developers understand the true scope and capabilities of every component.\n# Accessibility Assurance (A11Y).\nAccessibility is non-negotiable. It is documented to ensure every component complies with WCAG standards—defining contrast ratios, keyboard navigation, and specific behaviors so the product remains inclusive and compliant with current regulations.",
-      "# Screen Analysis.\nAnalyzing each screen not in isolation, but within its specific use case. This allows us to spot inconsistencies, reuse components, and align behaviors with the needs of the flow.\n# Visual Consistency.\nTypography, color palettes, spacing, layouts, and grids—ensuring the interface feels cohesive, even if the user can't explicitly point out why.\n# Functional Consistency.\nIf two elements look similar, they should behave the same way. When they don't, it creates doubt. And when users hesitate, the experience breaks down.",
-      "# Skills & Expertise\n**UX Product Design:** Wireframing (Lo-Fi/Hi-Fi) · UX Flows · Behavior Design · Screen Analysis\n**UI & Design Systems:** Banking · UI Engineering · Atomic Design · Component Libraries · Anatomy · Taxonomy · Pixel-Perfect · Dashboards & CRMs\n**Accessibility & Standards:** Accessibility · Analysis (WCAG) · Responsive Web Design · Material Design · Human Interface Guidelines\n**Design & Documentation:** Figma · Design Systems · Technical Project Documentation · Design Ops · Layouts · Accessibility\n**Front-End Development:** HTML5 · CSS3 · Bootstrap · Tailwind · Frameworks Frontend · Terminal · Github · Vercel\n**Collaboration & AI Tools:** Jira · Confluence · Claude",
+      "# [TODO] Your main interest.\n[TODO] A short paragraph on why it matters to you.",
+      "# [TODO] Another topic.\n[TODO] Short paragraph.\n# [TODO] Another topic.\n[TODO] Short paragraph.",
+      "# Skills & Expertise\n**[TODO] Area:** Skill · Skill · Skill\n**[TODO] Area:** Skill · Skill · Skill\n**[TODO] Tools:** Tool · Tool · Tool",
     ].join('\n\n'),
   },
-  { id: 'cv', title: 'CV', kicker: 'My journey', preview: 'User Experience Consultant at Amaris Consulting · Design Systems Designer, Banking…',
+  { id: 'cv', title: 'CV', kicker: 'My journey', preview: 'Senior Product Designer at Company Name · Product Designer, Fintech…',
     content: [
-      "# User Experience Consultant\n@ Amaris Consulting\n~ Jul 2026 – Present",
-      "# User Experience Consultant · Design Systems Designer\n@ Amaris Consulting\n~ Oct 2023 – Jul 2026\n+ Banking client\n• Managed and maintained **component libraries** and documentation, keeping components and docs coherent and consistent.\n• Continuously reviewed component repositories so the development team implemented changes and improvements correctly; resolved UI questions from design and development teams.\n• Ran **screen analysis** to ensure consistency case by case.\n• Owned the **Component Change Request** lifecycle: fixed bugs, and onboarded or deprecated components requested by the UX/UI team. Removed dependencies between releases, handled error corrections and controlled version publishing.\n• Wrote **component documentation** detailing structure, behavior and specific use cases, with traceability and history of each component so stakeholders understand its evolution and needs.\n• Planned and ran **audits** to identify and deprecate unused components, keeping the system aligned with core releases and libraries.",
-      "# UX Consultant · Design Systems Designer\n@ Stefanini LATAM\n~ Aug 2021 – Dec 2021 · Santiago, Chile\n+ Logistics · Blue Express (blue.cl)\n• Designed and architected components for the **Morpho Design System** behind Blue Express products.\n• Used **Atomic Design** and **Pixel Perfect** as the base to plan, create and audit every component needed to improve usability, accounting for accessibility, guidelines, spacing, color, shape, typography, wording and copy.",
-      "# UX-UI Designer · Visual Designer\n@ OQO\n~ Oct 2019 – Aug 2021 · Santiago, Chile\n+ Logistics · Retail · turbus.cl · condor.cl · pasajes.cl · royalenfield.cl · resco.cl · Petricio\n• Proposed creative, feasible solutions for clients' business models. Defined **User Journeys**, **Wireframes**, interaction flows and prototypes.\n• **Turbus · Condor · Pasajes:** designed payment links and ticket-purchase flows without sign-in, improving usability and ease of use to raise conversion and ticket sales since launch.",
-      "# Art Director · Brand Designer\n@ elestudio\n~ Mar 2018 – Aug 2018 · Santiago, Chile\n• Created **purpose-driven brands** that connect emotionally with people and share their motivations, values and interests.\n• Defined **digital marketing plans**: the elements that make up the brand, the channels and the investment in each.\n• Conveyed messages as effectively as possible, standing out for creativity and quality.",
-      "# Art Director · Brand Designer\n@ Causa / Creamos Identidades\n~ Apr 2016 – Feb 2018 · Panama – Costa Rica\n+ Remote",
-      "# Art Director · Brand Designer\n@ La Cápsula\n~ Feb 2015 – May 2016\n+ Clients: Pepsi, Lipton, Frito-Lay",
-      "# Art Director\n@ Nölck Red America\n~ Sep 2014 – Feb 2015",
-      "# Graphic Designer · Art Director\n@ ARS DDB\n~ Apr 2009 – Feb 2014",
-      "# Graphic Designer\n@ Rapp Collins\n~ Feb 2006 – Feb 2009",
+      "# Senior Product Designer\n@ Company Name\n~ Jan 2025 – Present · City, Country",
+      "# Product Designer · Design Systems\n@ Company Name\n~ Mar 2022 – Dec 2024 · City, Country\n+ Fintech client\n• Maintained the **component library** and its documentation, keeping design and code in sync.\n• Reviewed implementations with engineering and resolved UI questions across teams.\n• Ran **screen audits** to spot inconsistencies and reuse components across flows.\n• Owned the **change request** process: new components, fixes and deprecations, with versioned releases.",
+      "# UX Designer\n@ Agency Name\n~ Jun 2020 – Feb 2022 · City, Country\n+ Logistics · Retail · client-one.com · client-two.com\n• Defined **user journeys**, **wireframes**, flows and prototypes for client products.\n• **Client One:** redesigned the checkout flow, reducing steps and improving conversion.",
+      "# UI Designer · Visual Designer\n@ Studio Name\n~ Feb 2018 – May 2020 · City, Country\n• Designed interfaces and **visual systems** for web and mobile products.\n• Worked with developers to ship **pixel-perfect** layouts.",
+      "# Art Director\n@ Agency Name\n~ Apr 2016 – Jan 2018\n+ Remote",
+      "# Graphic Designer\n@ Studio Name\n~ Mar 2014 – Mar 2016\n+ Clients: Brand One, Brand Two",
     ].join('\n\n'),
   },
-  { id: 'certifications', title: 'Certifications', preview: 'weAAAre – Digital Accessibility · Udemy · Raul Marin · Coderhouse · FreeCodeCamp',
+  { id: 'certifications', title: 'Certifications', preview: 'Institution Name – Accessibility · Online Platform · Bootcamp Name…',
     content: [
-      "# weAAAre – Digital Accessibility\n~ 2026\n• **UI Accessibility Fundamentals.** Legible typography, accessible color palettes and inclusive design for links and buttons.\n• **Development & Standards.** Semantic HTML for designers, an introduction to ARIA and in-depth optimization for screen readers (VoiceOver, TalkBack).\n• **Management & Audits.** Accessibility handoff integration, digital KPI definition and full web and mobile audits.",
-      "# Udemy\n~ 2026\n• Artificial Intelligence (AI): The ABC of Key Fundamentals\n• Complete Claude AI Course: Cowork, Design, Projects, Excel",
-      "# Raul Marin\n~ 2024\n• Design Systems",
-      "# Coderhouse\n~ 2021 – 2023\n• Design Systems\n• UI/UX - Mobile App’s\n• Front End",
-      "# FreeCodeCamp\n~ 2020\n• Responsive Web Design",
+      "# Institution Name – Digital Accessibility\n~ 2025\n• **Accessibility Fundamentals.** Legible typography, accessible colour and inclusive links and buttons.\n• **Standards.** Semantic HTML, ARIA basics and screen reader testing.\n• **Audits.** Accessibility handoff and full web and mobile audits.",
+      "# Online Platform\n~ 2024\n• Course name\n• Course name",
+      "# Mentor Name\n~ 2023\n• Design Systems",
+      "# Bootcamp Name\n~ 2020 – 2022\n• UX/UI Design\n• Front End",
+      "# Online Platform\n~ 2019\n• Responsive Web Design",
     ].join('\n\n'),
   },
 ];

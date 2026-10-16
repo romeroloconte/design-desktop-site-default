@@ -671,6 +671,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .li-about { margin: var(--sp-4) 0; font-size: var(--fs-sm); line-height: var(--lh-body); }
 .li-cta { display: inline-block; padding: 8px var(--sp-5); border-radius: var(--radius-pill); background: #0a66c2; color: var(--on-dark); font-size: var(--fs-sm); font-weight: var(--fw-semibold); text-decoration: none; }
 .li-cta:hover { background: #004182; }
+.browser-setup { display: grid; place-items: center; padding: var(--sp-6); }
+.browser-setup__card { display: flex; flex-direction: column; align-items: center; gap: var(--sp-3); max-width: 420px; padding: var(--sp-6); border-radius: 12px; background: var(--surface); box-shadow: 0 0 0 1px var(--hairline); text-align: center; }
+.browser-setup__title { margin: 0; font-size: var(--fs-lg); font-weight: var(--fw-bold); }
+.browser-setup__body { margin: 0; font-size: var(--fs-sm); line-height: var(--lh-body); color: var(--muted); }
+.browser-setup__example { padding: 4px 10px; border-radius: 6px; background: var(--window-bg); font-size: var(--fs-sm); color: var(--ink); }
+.browser-setup .li-cta { border: 0; cursor: pointer; }
 .browser-back { display: none; flex: none; width: 28px; height: 28px; padding: 0; border: 0; background: transparent; border-radius: 8px; color: var(--on-dark); line-height: 0; }
 @media (hover: hover) { .browser-back:hover { background: var(--ff-url); } }
 @media (max-width: 767px) { .browser-nav, .browser-extras, .browser-url__tools { display: none; } .browser-back { display: grid; place-items: center; } }

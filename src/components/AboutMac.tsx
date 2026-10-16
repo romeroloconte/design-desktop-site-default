@@ -1,7 +1,7 @@
 import { useId, useRef, useState } from 'react';
 import { appearances, type Appearance } from '../appearance';
 import { useFocusTrap } from '../hooks/hooks';
-import { author } from '../content/dock';
+import { author, credit } from '../content/dock';
 
 export function AboutMac({ current, onPick, onClose }: { current: Appearance; onPick: (a: Appearance) => void; onClose: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -67,6 +67,7 @@ export function AboutMac({ current, onPick, onClose }: { current: Appearance; on
           <dt>Design</dt><dd>{author.name}</dd>
           <dt>Appearance</dt><dd>{active.name}</dd>
           <dt>Version</dt><dd>{active.era}</dd>
+          <dt>Template</dt><dd><a href={credit.url} target="_blank" rel="noopener noreferrer">{credit.name}</a></dd>
         </dl>
       </div>
     </div>
