@@ -1,71 +1,85 @@
-# Design Desktop Site
+# Desktop Portfolio Template
 
-Plantilla de portfolio personal, construida con la metáfora de un escritorio de sistema operativo (estilo macOS): barra de menú, carpetas de proyecto, ventanas de case study y dock.
+A portfolio template built around the metaphor of a desktop operating system: menu bar, project folders, case-study windows, Spotlight, widgets and a dock. Clone it, replace the placeholder content with yours and deploy.
 
-## Características
+## Features
 
-- Escritorio interactivo con carpetas por proyecto que abren ventanas de case study.
-- Barra de menú con indicador de disponibilidad y reloj en vivo.
-- Dock con herramientas, apps propias y enlaces externos.
-- Spotlight, panel de widgets, notas y página de tokens de diseño.
-- Vista adaptada para móvil.
-- Contenido tipado en `src/content`, sin backend.
+- Interactive desktop where each project is a folder that opens a case-study window.
+- Menu bar with an availability indicator and a live clock.
+- Dock with tools, your own apps and external links.
+- Spotlight search, widgets panel, Notes app and a design-tokens page.
+- Three switchable looks: **Tahoe** (macOS 26), **Aqua** (Mac OS X 10.4) and **Classic** (Mac OS 9).
+- Mobile-friendly layout.
+- Typed content in `src/content`. No backend, no database.
 
 ## Stack
 
 - [Vite](https://vite.dev) + [React](https://react.dev) + TypeScript
-- [Motion](https://motion.dev) para animaciones
-- CSS plano con custom properties
-- [Oxlint](https://oxc.rs) para linting
+- [Motion](https://motion.dev) for animations
+- Plain CSS with custom properties
+- [Oxlint](https://oxc.rs) for linting
 
-## Empezar
+## Getting started
 
-Requiere Node.js 20 o superior.
+Requires Node.js 20 or newer.
 
 ```bash
+git clone <your-repo-url> my-portfolio
+cd my-portfolio
 npm install
 npm run dev
 ```
 
+Then open the URL that Vite prints (usually `http://localhost:5173`).
+
+## Make it yours
+
+All personal content lives in `src/content/`. Search the project for `[TODO]` to find every placeholder you still need to fill in.
+
+| What                          | Where                                   |
+| ----------------------------- | --------------------------------------- |
+| Name, role, headline, links   | `src/content/dock.ts` → `author`        |
+| Notes app (About, CV…)        | `src/content/dock.ts` → `notes`         |
+| Dock apps and their dialogs   | `src/content/dock.ts` → `dockItems`     |
+| Case studies                  | `src/content/projects.ts`               |
+| Menu bar and context menus    | `src/content/menus.ts`                  |
+| Wallpapers                    | `public/images/`                        |
+| Dock and menu bar icons       | `public/icons-dock/`, `public/icons-menubar/` |
+| Looks / themes                | `src/appearance.ts`, `src/styles/`      |
+
+Notes:
+
+- `author` feeds the menu bar, the tab title, About This Mac and the profile card.
+- Empty links (`github`, `linkedin`, `spotifyPlaylist`) show a card explaining where to add them.
+- Projects are made of typed sections (hero, intro, numbered list, process…) defined in `src/content/types.ts` and rendered by `SectionRenderer`.
+
 ## Scripts
 
-| Comando           | Descripción                          |
+| Command           | Description                          |
 | ----------------- | ------------------------------------ |
-| `npm run dev`     | Servidor de desarrollo con HMR       |
-| `npm run build`   | Type-check y build de producción     |
-| `npm run preview` | Sirve localmente el build            |
-| `npm run lint`    | Ejecuta Oxlint                       |
+| `npm run dev`     | Development server with HMR          |
+| `npm run build`   | Type-check and production build      |
+| `npm run preview` | Serve the production build locally   |
+| `npm run lint`    | Run Oxlint                           |
 
-## Estructura
+## Project structure
 
 ```
 src/
-├─ components/   Desktop, Dock, MenuBar, ventanas, Spotlight, widgets…
-├─ content/      Proyectos, dock y tipos de datos
-├─ hooks/        Hooks compartidos
-├─ styles/       Estilos y tokens
-├─ state.ts      Estado global
-└─ main.tsx      Punto de entrada
-public/          Iconos, imágenes y assets estáticos
+├─ components/   Desktop, Dock, MenuBar, windows, Spotlight, widgets…
+├─ content/      Projects, dock, menus and data types
+├─ hooks/        Shared hooks
+├─ styles/       Tokens, global styles and per-look themes
+├─ appearance.ts Look switcher (Tahoe / Aqua / Classic)
+├─ state.ts      Global state
+└─ main.tsx      Entry point
+public/          Icons, images and static assets
 ```
 
-## Personalizar con tu data
+## Deploy
 
-Todo el contenido personal vive en `src/content/`. Busca `[TODO]` para ver qué falta completar.
+`npm run build` outputs a static site to `dist/`. Upload that folder to any static host (Vercel, Netlify, Cloudflare Pages, GitHub Pages…).
 
-1. **`src/content/dock.ts` → `author`**: nombre, monograma, rol, titular, disponibilidad y links. La barra de menú, el título de la pestaña, About This Mac y la tarjeta de perfil leen de aquí.
-   - `links.website` apunta a [romeroloconte.com](https://romeroloconte.com/) (autor de la plantilla) hasta que pongas el tuyo.
-   - `links.github`, `links.linkedin` y `links.spotifyPlaylist` vienen vacíos: mientras lo estén, su ventana muestra una tarjeta que indica dónde agregarlos.
-2. **`src/content/dock.ts` → `notes`**: About, Interests, CV y Certifications de la app Notes.
-3. **`src/content/dock.ts` → `dockItems`**: textos de los diálogos de cada app del dock (agrega o quita apps).
-4. **`src/content/projects.ts`**: tus case studies.
-5. **`public/images/`**: fondos de escritorio y móvil.
+## Credits
 
-## Créditos
-
-Plantilla diseñada y desarrollada por [Luis Romero](https://romeroloconte.com/). El crédito aparece en About This Mac (`credit` en `src/content/dock.ts`).
-
-## Contenido
-
-Los proyectos se definen en `src/content/projects.ts` siguiendo los tipos de `src/content/types.ts`. Cada proyecto se compone de secciones tipadas (hero, intro, lista numerada, proceso, etc.) que renderiza `SectionRenderer`.
-
+Template designed and developed by [Luis Romero](https://romeroloconte.com/). The credit appears in About This Mac and can be changed or removed via `credit` in `src/content/dock.ts`.
